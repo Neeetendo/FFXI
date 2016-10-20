@@ -1,0 +1,575 @@
+function get_sets()
+    mote_include_version = 2
+    include('Mote-Include.lua')
+end
+
+function job_setup()
+    state.Buff['Climactic Flourish'] = buffactive['climactic flourish'] or false
+    state.MainStep = M{['description']='Main Step', 'Box Step', 'Quickstep', 'Feather Step', 'Stutter Step'}
+    state.AltStep = M{['description']='Alt Step', 'Quickstep', 'Feather Step', 'Stutter Step', 'Box Step'}
+    state.UseAltStep = M(false, 'Use Alt Step')
+    state.SelectStepTarget = M(false, 'Select Step Target')
+    state.IgnoreTargetting = M(false, 'Ignore Targetting')
+    state.CurrentStep = M{['description']='Current Step', 'Main', 'Alt'}
+
+	gear.default.obi_waist = "Eschan Stone"
+	
+    determine_haste_group()
+end
+
+function user_setup()
+    state.OffenseMode:options('Normal', 'Acc')
+    state.WeaponskillMode:options('Normal', 'Acc')
+    state.PhysicalDefenseMode:options('Evasion', 'PDT')
+	
+	send_command('bind ^f1 ja CuringWaltz stpc') --MX1--
+	send_command('bind ^f2 ja HealingWaltz stpc') --MX2--
+	send_command('bind ^f3 ja ViolentFlourish') --MX3--
+	send_command('bind ^f4 ja AnimatedFlourish') --MX4--
+	send_command('bind ^f5 ja DivineWaltz') --MX5--
+	send_command('bind ^f6 ja BuildingFlourish') --MX6--
+	send_command('bind ^f7 ja ClimacticFlourish') --MX7--
+	send_command('bind ^f8 ja ReverseFlourish') --MX8--
+	send_command('bind ^f9 ja WildFlourish') --MX9--
+	send_command('bind ^f10 ja NoFootRise') --MX10--
+	
+	send_command('bind !f1 ws RudrasStorm') --M1--
+	send_command('bind !f2 ws PyrrhicKleos') --M2--
+	send_command('bind !f3 ws Evisceration') --M3--
+	send_command('bind ^!f4') --M4--
+	send_command('bind !f5 ja Presto') --M5--
+	send_command('bind !f6 gs c step') --M6--
+	send_command('bind !f7 gs c cycle mainstep') --M7--
+	send_command('bind !f8') --M8--
+	send_command('bind !f9') --M9--
+	send_command('bind !f10') --M10--
+	send_command('bind !f11') --M11--
+	send_command('bind !f12') --M12--
+
+    select_default_macro_book()
+end
+
+function user_unload()
+	send_command('unbind ^f1')
+	send_command('unbind ^f2')
+	send_command('unbind ^f3')
+	send_command('unbind ^f4')
+	send_command('unbind ^f5')
+	send_command('unbind ^f6')
+	send_command('unbind ^f7')
+	send_command('unbind ^f8')
+	send_command('unbind ^f9')
+	send_command('unbind ^f10')
+	send_command('unbind !f1')
+	send_command('unbind !f2')
+	send_command('unbind !f3')
+	send_command('unbind ^!f4')
+	send_command('unbind !f5')
+	send_command('unbind !f6')
+	send_command('unbind !f7')
+	send_command('unbind !f8')
+	send_command('unbind !f9')
+	send_command('unbind !f10')
+	send_command('unbind !f11')
+	send_command('unbind !f12')
+end
+
+function init_gear_sets()
+    --------------------------------------
+    -- Augments
+    --------------------------------------
+	
+    Senuna = {}
+    Senuna.TP = { name="Senuna's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','"Store TP"+10',}}
+    Senuna.WS = { name="Senuna's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Weapon skill damage +10%',}}
+	
+	HerculeanHead = {}
+	HerculeanHead.FC = { name="Herculean Helm", augments={'Mag. Acc.+18 "Mag.Atk.Bns."+18','"Fast Cast"+2','MND+5','Mag. Acc.+11','"Mag.Atk.Bns."+7',}}
+	HerculeanHead.DW = { name="Herculean Helm", augments={'Attack+11','"Dual Wield"+5','DEX+4','Accuracy+11',}}
+	HerculeanHead.Nuke = { name="Herculean Helm", augments={'Mag. Acc.+18 "Mag.Atk.Bns."+18','"Fast Cast"+2','MND+5','Mag. Acc.+11','"Mag.Atk.Bns."+7',}}
+	HerculeanHead.DEXWS = { name="Herculean Helm", augments={'Attack+17','Weapon skill damage +5%','DEX+9',}}
+	HerculeanHead.CritDEX = { name="Herculean Helm", augments={'Accuracy+24 Attack+24','Crit. hit damage +4%','DEX+8','Attack+12',}}
+	
+	HerculeanBody = {}
+	HerculeanBody.TA = { name="Herculean Vest", augments={'Accuracy+30','"Triple Atk."+3',}}
+	HerculeanBody.STRWS = { name="Herculean Vest", augments={'Accuracy+28','Weapon skill damage +3%','STR+10','Attack+10',}}
+
+	HerculeanHands = {}
+	HerculeanHands.TA = { name="Herculean Gloves", augments={'Accuracy+11','"Triple Atk."+3','DEX+10','Attack+7',}}
+	HerculeanHands.DEXWS = { name="Herculean Gloves", augments={'Attack+12','Weapon skill damage +4%','DEX+7','Accuracy+9',}}
+	HerculeanHands.STRWS = { name="Herculean Gloves", augments={'Accuracy+29','Weapon skill damage +2%','STR+10','Attack+6',}}
+	HerculeanHands.CritDEX = { name="Herculean Gloves", augments={'Rng.Acc.+16','Crit.hit rate+3','DEX+10','Accuracy+7','Attack+8',}}
+	
+	HerculeanLegs = {}
+	HerculeanLegs.DW = { name="Herculean Trousers", augments={'Accuracy+23','"Dual Wield"+5','AGI+6','Attack+14',}}
+	HerculeanLegs.Nuke = { name="Herculean Trousers", augments={'Mag. Acc.+19 "Mag.Atk.Bns."+19','Magic burst mdg.+1%','STR+9','Mag. Acc.+13','"Mag.Atk.Bns."+12',}}
+	
+	HerculeanFeet = {}
+	HerculeanFeet.DW = { name="Herculean Boots", augments={'Accuracy+24','"Dual Wield"+5','AGI+1','Attack+6',}}
+	HerculeanFeet.TA = { name="Herculean Boots", augments={'Accuracy+22 Attack+22','"Triple Atk."+3','Accuracy+7',}}
+	HerculeanFeet.DEXWS = { name="Herculean Boots", augments={'Accuracy+27','Weapon skill damage +2%','DEX+11','Attack+14',}}
+	HerculeanFeet.STRWS = { name="Herculean Boots", augments={'Weapon skill damage +4%','STR+8','Accuracy+12','Attack+2',}}
+	HerculeanFeet.CritAGI = { "Herculean Boots", augments={'Accuracy+21','Crit.hit rate+4','AGI+15',}}
+	
+	AdhemarHands = {}
+	AdhemarHands.A = { name="Adhemar Wristbands", augments={'DEX+10','AGI+10','Accuracy+15',}}
+	AdhemarHands.C = { name="Adhemar Wristbands", augments={'AGI+10','Rng.Acc.+15','Rng.Atk.+15',}}
+	
+    --------------------------------------
+    -- Job Abilties Sets
+    --------------------------------------
+
+    sets.buff['Climactic Flourish'] = {ammo="Charis Feather",head="Charis Tiara +2"}
+	
+	sets.precast.JA['No Foot Rise'] = {body="Horos Casaque"}
+    sets.precast.JA['Trance'] = {head="Horos Tiara"}
+	sets.precast.JA['Lunge'] = {
+		ammo="Pemphredo Tathlum",
+        head=HerculeanHead.Nuke,
+		neck="Sanctity Necklace",
+		ear1="Friomisi Earring",
+		ear2="Novio Earring",
+        body="Samnuha Coat",
+		hands="Leyline Gloves",
+		ring1="Shiva Ring +1",
+		ring2="Mujin Band",
+		back="Argochampsa Mantle",
+		waist=gear.ElementalObi,
+		legs=HerculeanLegs.Nuke,
+		feet="Adhemar Gamashes"}
+	sets.precast.JA['Swipe'] = sets.precast.JA['Lunge']
+    sets.precast.Waltz = {
+		ammo="",
+		head="Horos Tiara",
+		neck="Dualism Collar +1",
+		ear1="",
+		ear2="",
+		body="Maxixi Casaque +1",
+		hands="",
+		ring1="",
+		ring2="",
+		back="Toetapper Mantle",
+		waist="Aristo Belt",
+		legs="",
+		feet="Maxixi Toe Shoes +1"}
+    sets.precast.Waltz['Healing Waltz'] = {}
+    sets.precast.Samba = {head="Maxixi Tiara +1",back="Senuna's Mantle"}
+    sets.precast.Jig = {feet="Maxixi Toe Shoes +1"}
+    sets.precast.Step = {
+		head="Maxixi Tiara +1",
+		hands="Maxixi Bangles",
+		waist="Chaac Belt",
+		feet="Horos Toe Shoes"}
+    sets.precast.Step['Feather Step'] = set_combine(sets.precast.Step, {feet="Charis Shoes +2"})
+
+    sets.precast.Flourish1 = {}
+    sets.precast.Flourish1['Violent Flourish'] = {
+		ammo="Pemphredo Tathlum",
+		head="Dampening Tam",
+		neck="Sanctity Necklace",
+		ear1="Dignitary's Earring",
+		ear2="",
+		body="Horos Casaque",
+		hands="Leyline Gloves",
+		ring1="Stikini Ring",
+		ring2="Weatherspoon Ring",
+		back="Toetapper Mantle",
+		waist="Eschan Stone",
+		legs=HerculeanLegs.Nuke,
+		feet=HerculeanFeet.Nuke}
+    sets.precast.Flourish1['Desperate Flourish'] = {}
+
+    sets.precast.Flourish2 = {}
+    sets.precast.Flourish2['Reverse Flourish'] = {hands="Charis Bangles +2",back="Toetapper Mantle"}
+
+    sets.precast.Flourish3 = {}
+    sets.precast.Flourish3['Striking Flourish'] = {body="Charis Casaque +2"}
+    sets.precast.Flourish3['Climactic Flourish'] = {ammo="Charis Feather",head="Charis Tiara +2"}
+	
+    --------------------------------------
+    -- Idle Sets
+    --------------------------------------
+	
+    sets.idle = {
+		ammo="Staunch Tathlum",
+		head="Iuitl Headgear +1",
+		neck="Loricate Torque +1",
+		ear1="Genmei Earring",
+		ear2="Etiolation Earring",
+		body="Emet Harness +1",
+		hands="Iuitl Wristbands +1",
+		ring1="Gelatinous Ring +1",
+		ring2="Defending Ring",
+		back="Xucau Mantle",
+		waist="Flume Belt",
+		legs="Iuitl Tights +1",
+		feet="Tandava Crackows"}
+    sets.idle.Town = sets.idle
+    sets.idle.Weak = sets.idle
+    sets.defense.Evasion = sets.idle
+	
+    --------------------------------------
+    -- Precast Sets
+    --------------------------------------
+    
+    sets.precast.FC = {}
+    sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {neck="Magoraga Beads"})
+	
+    --------------------------------------
+    -- Midcast Sets
+    --------------------------------------
+	
+    sets.midcast.FastRecast = sets.precast.FC
+    sets.midcast.Utsusemi = sets.precast.FC
+
+    --------------------------------------
+    -- Engaged Sets
+    --------------------------------------
+	
+    sets.engaged = {
+		ammo="Ginsen",
+		head=HerculeanHead.DW,
+		neck="Asperity Necklace",
+		ear1="Eabani Earring",
+		ear2="Suppanomimi",
+		body="Adhemar Jacket",
+		hands=AdhemarHands.A,
+		ring1="Epona's Ring",
+		ring2="Hetairoi Ring",
+		back="Toetapper Mantle",
+		waist="Patentia Sash",
+		legs=HerculeanLegs.DW,
+		feet=HerculeanFeet.DW}
+    sets.engaged.MidAcc = set_combine(sets.engaged , {})
+    sets.engaged.HighAcc = set_combine(sets.engaged , {
+		ammo="Falcon Eye",
+		head="Dampening Tam",
+		neck="Sanctity Necklace",
+		ear1="Cessance Earring",
+		ear2="Dignitary's Earring",
+		ring1="Ramuh Ring +1",
+		waist="Kentarch Belt +1"})
+
+    sets.engaged.MidHaste = {
+		ammo="Ginsen",
+		head="Adhemar Bonnet",
+		neck="Asperity Necklace",
+		ear1="Brutal Earring",
+		ear2="Suppanomimi",
+		body="Adhemar Jacket",
+		hands=AdhemarHands.A,
+		ring1="Epona's Ring",
+		ring2="Hetairoi Ring",
+		back=Senuna.TP,
+		waist="Patentia Sash",
+		legs="Samnuha Tights",
+		feet=HerculeanFeet.DW}
+    sets.engaged.MidAcc.MidHaste = set_combine(sets.engaged.MidHaste , {
+		ammo="Falcon Eye",
+		ear1="Cessance Earring",
+		waist="Kentarch Belt +1"})
+	sets.engaged.HighAcc.MidHaste = set_combine(sets.engaged.MidHaste , {
+		ammo="Falcon Eye",
+		head="Dampening Tam",
+		neck="Sanctity Necklace",
+		ear1="Cessance Earring",
+		ear2="Dignitary's Earring",
+		ring1="Ramuh Ring +1",
+		waist="Kentarch Belt +1"})
+
+    sets.engaged.MaxHaste = {
+		ammo="Ginsen",
+		head="Adhemar Bonnet",
+		neck="Asperity Necklace",
+		ear1="Brutal Earring",
+		ear2="Cessance Earring",
+		body=HerculeanBody.TA,
+		hands=AdhemarHands.A,
+		ring1="Epona's Ring",
+		ring2="Hetairoi Ring",
+		back=Senuna.TP,
+		waist="Windbuffet Belt +1",
+		legs="Samnuha Tights",
+		feet=HerculeanFeet.TA}
+	sets.engaged.MidAcc.MaxHaste = set_combine(sets.engaged.MaxHaste , {
+		ammo="Falcon Eye",
+		ear1="Cessance Earring",
+		waist="Kentarch Belt +1"})
+    sets.engaged.HighAcc.MaxHaste = set_combine(sets.engaged.MaxHaste , {
+		ammo="Falcon Eye",
+		head="Dampening Tam",
+		neck="Sanctity Necklace",
+		ear1="Cessance Earring",
+		ear2="Dignitary's Earring",
+		ring1="Ramuh Ring +1",
+		waist="Kentarch Belt +1"})
+
+    --------------------------------------
+    -- Weaponskill Sets
+    --------------------------------------
+	
+    sets.precast.WS = {}
+    sets.precast.WS.Acc = sets.precast.WS
+	
+	sets.Rudra = {
+		ammo="Jukukik Feather",
+		head=HerculeanHead.DEXWS,
+		neck="Caro Necklace",
+		ear1="Ishvara Earring",
+		ear2="Moonshade Earring",
+		body="Meghanada Cuirie +1",
+		hands="Meghanada Gloves +1",
+		ring1="Apate Ring",
+		ring2="Ramuh Ring +1",
+		back=Senuna.WS,
+		waist="Grunfeld Rope",
+		legs="Lustratio Subligar",
+		feet=HerculeanFeet.DEXWS}
+    sets.precast.WS['Rudra\'s Storm'] = set_combine(sets.precast.WS, sets.Rudra)
+    sets.precast.WS['Rudra\'s Storm'].Mid = set_combine(sets.precast.WS, sets.Rudra)
+    sets.precast.WS['Rudra\'s Storm'].Acc = set_combine(sets.precast.WS, sets.Rudra)
+	
+	sets.Kleos = {
+		ammo="Jukukik Feather",
+		head="Lilitu Headpiece",
+		neck=gear.ElementalGorget,
+		ear1="Ishvara Earring",
+		ear2="Dominance Earring +1",
+		body="Adhemar Jacket",
+		hands=AdhemarHands.A,
+		ring1="Epona's Ring",
+		ring2="Ifrit Ring",
+		back=Senuna.WS,
+		waist=gear.ElementalBelt,
+		legs="Samnuha Tights",
+		feet="Lustratio Leggings"}
+    sets.precast.WS['Pyrrhic Kleos'] = set_combine(sets.precast.WS, sets.Kleos)
+    sets.precast.WS['Pyrrhic Kleos'].Mid = set_combine(sets.precast.WS, sets.Kleos)
+    sets.precast.WS['Pyrrhic Kleos'].Acc = set_combine(sets.precast.WS, sets.Kleos)
+	
+	sets.Evisceration = {
+		ammo="Yetshila",
+		head="Adhemar Bonnet",
+		neck=gear.ElementalGorget,
+		ear1="Brutal Earring",
+		ear2="Moonshade Earring",
+		body="Abnoba Kaftan",
+		hands=AdhemarHands.A,
+		ring1="Begrudging Ring",
+		ring2="Ramuh Ring +1",
+		back=Senuna.WS,
+		waist=gear.ElementalBelt,
+		legs="Samnuha Tights",
+		feet=HerculeanFeet.DEXWS}
+    sets.precast.WS['Evisceration'] = set_combine(sets.precast.WS, sets.Evisceration)
+    sets.precast.WS['Evisceration'].Mid = set_combine(sets.precast.WS, sets.Evisceration)
+    sets.precast.WS['Evisceration'].Acc = set_combine(sets.precast.WS, sets.Evisceration)
+	
+	sets.Aeolian = {}
+    sets.precast.WS['Aeolian Edge'] = set_combine(sets.precast.WS, sets.Aeolian)
+
+    --------------------------------------
+    -- Misc Sets
+    --------------------------------------
+	
+    sets.resting = {}
+    sets.defense.PDT = {
+		ammo="Staunch Tathlum",
+        head="Meghanada Visor +1",
+		neck="Loricate Torque +1",
+        body="Meghanada Cuirie +1",
+		hands="Meghanada Gloves +1",
+		ring1="Patricius Ring",
+		ring2="Defending Ring",
+        back="Shadow Mantle",
+		waist="Flume Belt",
+		legs="Meghanada Chausses +1",
+		feet="Herculean Boots"}
+    sets.defense.MDT = {
+		ammo="Staunch Tathlum",
+		head="Iuitl Headgear +1",
+		neck="Loricate Torque +1",
+		ear1="Odnowa Earring +1",
+		ear2="Etiolation Earring",
+		body="Mekosuchinae harness",
+		hands="Iuitl Wristbands +1",
+		ring1="Purity Ring",
+		ring2="Defending Ring",
+		back="Xucau Mantle",
+		waist="Flax Sash",
+		legs="Iuitl Tights +1",
+		feet="Tandava Crackows"}
+end
+
+function job_precast(spell, action, spellMap, eventArgs)
+    auto_presto(spell)
+end
+
+function job_post_precast(spell, action, spellMap, eventArgs)
+    if spell.type == "WeaponSkill" then
+        if state.Buff['Climactic Flourish'] then
+            equip(sets.buff['Climactic Flourish'])
+        end
+    end
+end
+
+function job_precast(spell, action, spellMap, eventArgs)
+	if buffactive['Terror'] or buffactive['Stun'] then
+            eventArgs.cancel = true
+			add_to_chat(122, "Unable to act, action cancelled")
+            return	
+	end
+	if spell.english == 'Lunge' then
+        local abil_recasts = windower.ffxi.get_ability_recasts()
+        if abil_recasts[spell.recast_id] > 0 then
+            send_command('input /jobability "Swipe" <t>')
+            add_to_chat(122, '***Lunge Aborted: Timer on Cooldown -- Downgrading to Swipe.***')
+            eventArgs.cancel = true
+            return
+        end
+    end
+end
+
+function job_buff_change(buff,gain)
+	if S{'haste','march','mighty guard','embrava','haste samba','geo-haste','indi-haste'}:contains(buff:lower()) then
+        determine_haste_group()
+        handle_equipping_gear(player.status)
+    elseif buff == 'Saber Dance' or buff == 'Climactic Flourish' then
+        handle_equipping_gear(player.status)
+    end
+end
+
+function job_status_change(new_status, old_status)
+    if new_status == 'Engaged' then
+        determine_haste_group()
+    end
+end
+
+function job_update(cmdParams, eventArgs)
+    determine_haste_group()
+end
+
+function customize_idle_set(idleSet)
+    if player.hpp < 80 and not areas.Cities:contains(world.area) then
+        idleSet = set_combine(idleSet, sets.ExtraRegen)
+    end
+    return idleSet
+end
+
+function customize_melee_set(meleeSet)
+    if state.DefenseMode.value ~= 'None' then
+        if buffactive['saber dance'] then
+            meleeSet = set_combine(meleeSet, sets.buff['Saber Dance'])
+        end
+        if state.Buff['Climactic Flourish'] then
+            meleeSet = set_combine(meleeSet, sets.buff['Climactic Flourish'])
+        end
+    end
+    
+    return meleeSet
+end
+
+function job_auto_change_target(spell, action, spellMap, eventArgs)
+    if spell.type == 'Step' then
+        if state.IgnoreTargetting.value == true then
+            state.IgnoreTargetting:reset()
+            eventArgs.handled = true
+        end
+        
+        eventArgs.SelectNPCTargets = state.SelectStepTarget.value
+    end
+end
+
+function display_current_job_state(eventArgs)
+    local msg = 'Melee'
+    
+    if state.CombatForm.has_value then
+        msg = msg .. ' (' .. state.CombatForm.value .. ')'
+    end
+    
+    msg = msg .. ': '
+    
+    msg = msg .. state.OffenseMode.value
+    if state.HybridMode.value ~= 'Normal' then
+        msg = msg .. '/' .. state.HybridMode.value
+    end
+    msg = msg .. ', WS: ' .. state.WeaponskillMode.value
+    
+    if state.DefenseMode.value ~= 'None' then
+        msg = msg .. ', ' .. 'Defense: ' .. state.DefenseMode.value .. ' (' .. state[state.DefenseMode.value .. 'DefenseMode'].value .. ')'
+    end
+    
+    if state.Kiting.value then
+        msg = msg .. ', Kiting'
+    end
+
+    msg = msg .. ', ['..state.MainStep.current
+
+    if state.UseAltStep.value == true then
+        msg = msg .. '/'..state.AltStep.current
+    end
+    
+    msg = msg .. ']'
+
+    if state.SelectStepTarget.value == true then
+        steps = steps..' (Targetted)'
+    end
+
+    add_to_chat(122, msg)
+
+    eventArgs.handled = true
+end
+
+function job_self_command(cmdParams, eventArgs)
+    if cmdParams[1] == 'step' then
+        if cmdParams[2] == 't' then
+            state.IgnoreTargetting:set()
+        end
+
+        local doStep = ''
+        if state.UseAltStep.value == true then
+            doStep = state[state.CurrentStep.current..'Step'].current
+            state.CurrentStep:cycle()
+        else
+            doStep = state.MainStep.current
+        end        
+        
+        send_command('@input /ja "'..doStep..'" <t>')
+    end
+end
+
+function determine_haste_group()
+	classes.CustomMeleeGroups:clear()
+		-- buffactive[33] = Haste/Haste II 15%/30%
+		-- buffactive[604] = Mighty Guard 15%
+		-- buffactive[580] = Indi/Geo-Haste 29.9%/35.4%/40.9%
+		-- buffactive[370] = Haste Samba 10%(Main) 5%(Sub)
+		-- buffactive[228] = Embrava 30%
+		-- Victory March +3/+4/+5 :: 14%/15.6%/17.1%
+		-- Advancing March +3/+4/+5 :: 10.9%/12.5%/14%
+	if (buffactive[580] and ( buffactive.march or buffactive[33] or buffactive.embrava or buffactive[604])) or  --Indi/Geo-Haste + Anything
+		(buffactive.embrava and (buffactive.march or buffactive[33] or buffactive[604])) or  --Embrava + anything
+		(buffactive.march == 2 and (buffactive[33] or buffactive[604])) or  --March x2 + Anything
+		(buffactive[33] and buffactive[604] and buffactive.march) then --Haste + Mighty Guard + March(s)
+			classes.CustomMeleeGroups:append('MaxHaste')
+	elseif ((buffactive[604] or buffactive[33]) and buffactive['haste samba'] and buffactive.march == 1) or --Mighty Guard/Haste + Samba + March
+		(buffactive.march == 2 and buffactive['haste samba']) or
+		(buffactive[33] and buffactive['haste samba']) then 
+            classes.CustomMeleeGroups:append('MaxHaste')
+	elseif ( buffactive.march == 2 ) or --March x2
+		((buffactive[33] or buffactive[604]) and buffactive.march == 1 ) or  --Mighty Guard/Haste + March
+		(buffactive[580] ) or  --Indi/Geo-Haste
+		(buffactive[33] and buffactive[604]) then  --Haste + Mighty Guard
+			classes.CustomMeleeGroups:append('MaxHaste')
+	elseif buffactive[33] or buffactive[604] or buffactive.march == 2 then
+			classes.CustomMeleeGroups:append('MidHaste')
+	end
+end
+
+function select_default_macro_book()
+    if player.sub_job == 'WAR' then
+        set_macro_page(1, 4)
+    else
+        set_macro_page(1, 4)
+    end
+end
