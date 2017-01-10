@@ -34,7 +34,7 @@ function user_setup()
 	send_command('bind ^f3 ja Despoil') --MX3--
 	send_command('bind ^f4 ja Steal') --MX4--
 	send_command('bind ^f5 ja Feint') --MX5--
-	send_command('bind ^f6 ja Accomplice st') --MX6--
+	send_command('bind ^f6 ja Accomplice stpc') --MX6--
 	send_command('bind ^f7 ja Conspirator') --MX7--
 	send_command('bind ^f8') --MX8--
 	send_command('bind ^f9 ja Flee') --MX9--
@@ -51,7 +51,7 @@ function user_setup()
 	send_command('bind !f9 gs c cycle treasuremode') --M9--
 	send_command('bind !f10') --M10--
 	send_command('bind !f11') --M11--
-	send_command('bind !f12') --M12--
+	send_command('bind !f12 input /targetnpc;wait 1;input /item "Rubicund Cell" <t>') --M12--
 
     select_default_macro_book()
 end
@@ -89,38 +89,6 @@ function init_gear_sets()
 	Toutatis = {}
     Toutatis.TP = { name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','"Store TP"+10',}}
     Toutatis.WS = { name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','Weapon skill damage +10%',}}
-	
-	HerculeanHead = {}
-	HerculeanHead.FC = { name="Herculean Helm", augments={'Mag. Acc.+18 "Mag.Atk.Bns."+18','"Fast Cast"+2','MND+5','Mag. Acc.+11','"Mag.Atk.Bns."+7',}}
-	HerculeanHead.DW = { name="Herculean Helm", augments={'Attack+11','"Dual Wield"+5','DEX+4','Accuracy+11',}}
-	HerculeanHead.Nuke = { name="Herculean Helm", augments={'Mag. Acc.+18 "Mag.Atk.Bns."+18','"Fast Cast"+2','MND+5','Mag. Acc.+11','"Mag.Atk.Bns."+7',}}
-	HerculeanHead.DEXWS = { name="Herculean Helm", augments={'Attack+17','Weapon skill damage +5%','DEX+9',}}
-	HerculeanHead.CritDEX = { name="Herculean Helm", augments={'Accuracy+24 Attack+24','Crit. hit damage +4%','DEX+8','Attack+12',}}
-	
-	HerculeanBody = {}
-	HerculeanBody.TA = { name="Herculean Vest", augments={'Accuracy+30','"Triple Atk."+3',}}
-	HerculeanBody.STRWS = { name="Herculean Vest", augments={'Accuracy+28','Weapon skill damage +3%','STR+10','Attack+10',}}
-
-	HerculeanHands = {}
-	HerculeanHands.TA = { name="Herculean Gloves", augments={'Accuracy+11','"Triple Atk."+3','DEX+10','Attack+7',}}
-	HerculeanHands.DEXWS = { name="Herculean Gloves", augments={'Attack+12','Weapon skill damage +4%','DEX+7','Accuracy+9',}}
-	HerculeanHands.STRWS = { name="Herculean Gloves", augments={'Accuracy+29','Weapon skill damage +2%','STR+10','Attack+6',}}
-	HerculeanHands.CritDEX = { name="Herculean Gloves", augments={'Rng.Acc.+16','Crit.hit rate+3','DEX+10','Accuracy+7','Attack+8',}}
-	
-	HerculeanLegs = {}
-	HerculeanLegs.DW = { name="Herculean Trousers", augments={'Accuracy+23','"Dual Wield"+5','AGI+6','Attack+14',}}
-	HerculeanLegs.Nuke = { name="Herculean Trousers", augments={'Mag. Acc.+19 "Mag.Atk.Bns."+19','Magic burst mdg.+1%','STR+9','Mag. Acc.+13','"Mag.Atk.Bns."+12',}}
-	
-	HerculeanFeet = {}
-	HerculeanFeet.DW = { name="Herculean Boots", augments={'Accuracy+24','"Dual Wield"+5','AGI+1','Attack+6',}}
-	HerculeanFeet.TA = { name="Herculean Boots", augments={'Accuracy+22 Attack+22','"Triple Atk."+3','Accuracy+7',}}
-	HerculeanFeet.DEXWS = { name="Herculean Boots", augments={'Accuracy+27','Weapon skill damage +2%','DEX+11','Attack+14',}}
-	HerculeanFeet.STRWS = { name="Herculean Boots", augments={'Weapon skill damage +4%','STR+8','Accuracy+12','Attack+2',}}
-	HerculeanFeet.CritAGI = { "Herculean Boots", augments={'Accuracy+21','Crit.hit rate+4','AGI+15',}}
-	
-	AdhemarHands = {}
-	AdhemarHands.A = { name="Adhemar Wristbands", augments={'DEX+10','AGI+10','Accuracy+15',}}
-	AdhemarHands.C = { name="Adhemar Wristbands", augments={'AGI+10','Rng.Acc.+15','Rng.Atk.+15',}}
 	
     --------------------------------------
     -- Utility Sets
@@ -160,7 +128,7 @@ function init_gear_sets()
 		back=Toutatis.TP,
 		waist="Chaac Belt",
 		legs="Samnuha Tights",
-		feet=HerculeanFeet.DEXWS}
+		feet=HerculeanFeet.CritAGI}
     sets.precast.Waltz = {}
     sets.precast.Step = {}
     sets.precast.Flourish1 = sets.TreasureHunter
@@ -193,9 +161,9 @@ function init_gear_sets()
     --------------------------------------
 	
     sets.precast.FC = {
-		ammo="Impatiens",
-		head="Herculean Helm", --7
-		neck="Jeweled Collar", --3
+		ammo="Sapience Orb", --2
+		head=HerculeanHead.FC, --12
+		neck="Baetyl Pendant", --4
 		ear1="Loquacious Earring", --2
 		ear2="Etiolation Earring", --2
 		body="Dread Jupon", --7
@@ -204,8 +172,8 @@ function init_gear_sets()
 		ring2="Weatherspoon ring", --5
 		back="",
 		waist="",
-		legs="Gyve Trousers",
-		feet="Amm Greaves"}
+		legs="Gyve Trousers", --4
+		feet=""}
     sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {neck="Magoraga Beads"})
     sets.precast.RA = {}
 
@@ -378,7 +346,20 @@ function init_gear_sets()
     sets.precast.WS['Evisceration'].TA = set_combine(sets.precast.WS, sets.Evisceration)
     sets.precast.WS['Evisceration'].SATA = set_combine(sets.precast.WS, sets.Evisceration)
 	
-	sets.Exenterator = {}
+	sets.Exenterator = {
+		ammo="Expeditious Pinion",
+		head="Adhemar Bonnet",
+		neck=gear.ElementalGorget,
+		ear1="Brutal Earring",
+		ear2="Infused Earring",
+		body="Meghanada cuirie +1",
+		hands="Meghanada Gloves +1",
+		ring1="Epona Ring",
+		ring2="Garuda Ring +1",
+		back=Toutatis.WS,
+		waist=gear.ElementalBelt,
+		legs="Meghanada Chausses +1",
+		feet="Meghanada Jambeaux +1"}
     sets.precast.WS['Exenterator'] = set_combine(sets.precast.WS, sets.Exenterator)
     sets.precast.WS['Exenterator'].Mid = set_combine(sets.precast.WS, sets.Exenterator)
     sets.precast.WS['Exenterator'].Acc = set_combine(sets.precast.WS, sets.Exenterator)
@@ -457,6 +438,9 @@ function job_post_precast(spell, action, spellMap, eventArgs)
 			equip(sets.CapacityMantle)
 		end
 	end
+    if spell.english == "Rudra\'s Storm" and player.tp > 2250 then
+        equip({ear2="Dominance Earring +1"})
+    end
 end
 
 function job_post_midcast(spell, action, spellMap, eventArgs)
