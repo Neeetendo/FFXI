@@ -29,31 +29,32 @@ function user_setup()
     state.MagicalDefenseMode:options('MDT')
     state.RangedMode:options('Normal')
 
-	send_command('bind ^f1 ja Mug') --MX1--
-	send_command('bind ^f2 ja Bully') --MX2--
-	send_command('bind ^f3 ja Despoil') --MX3--
+	send_command('bind ^f1 ja Bully') --MX1--
+	send_command('bind ^f2 ja Feint') --MX2--
+	send_command('bind ^f3 ja Mug') --MX3--
 	send_command('bind ^f4 ja Steal') --MX4--
-	send_command('bind ^f5 ja Feint') --MX5--
-	send_command('bind ^f6 ja Accomplice stpc') --MX6--
-	send_command('bind ^f7 ja Conspirator') --MX7--
-	send_command('bind ^f8') --MX8--
-	send_command('bind ^f9 ja Flee') --MX9--
+	send_command('bind ^f5') --MX5--
+	send_command('bind ^f6 ws RudrasStorm') --MX6--
+	send_command('bind ^f7 input //sneakattack;wait 1;//RudrasStorm') --MX7--
+	send_command('bind ^f8 input //trickattack;wait 1;//RudrasStorm') --MX8--
+	send_command('bind ^f9 ja Despoil') --MX9--
 	send_command('bind ^f10 input //berserk;wait 1;//aggressor') --MX10--
 	
-	send_command('bind !f1 ws RudrasStorm') --M1--
-	send_command('bind !f2 input //sneakattack;wait 1;//RudrasStorm') --M2--
-	send_command('bind !f3 input //trickattack;wait 1;//RudrasStorm') --M3--
-	send_command('bind ^!f4 ws Evisceration') --M4--
-	send_command('bind !f5 ws MandalicStab') --M5--
-	send_command('bind !f6 input //sneakattack;wait 1;//MandalicStab') --M6--
-	send_command('bind !f7 input //trickattack;wait 1;//MandalicStab') --M7--
-	send_command('bind !f8 ws AerolianEdge') --M8--
+	send_command('bind !f1 ja Accomplice stpc') --M1--
+	send_command('bind !f2 ja Conspirator') --M2--
+	send_command('bind !f3') --M3--
+	send_command('bind ^!f4') --M4--
+	send_command('bind !f5') --M5--
+	send_command('bind !f6') --M6--
+	send_command('bind !f7') --M7--
+	send_command('bind !f8') --M8--
 	send_command('bind !f9 gs c cycle treasuremode') --M9--
-	send_command('bind !f10') --M10--
-	send_command('bind !f11') --M11--
-	send_command('bind !f12 input /targetnpc;wait 1;input /item "Rubicund Cell" <t>') --M12--
+	send_command('bind !f10 ja Flee') --M10--
+	send_command('bind !f11 input /gessho;wait 5;/mayakov;wait 5;/ukatotlihn;wait 5;/korumoru;wait 5;/apururu(uc)') --M11--
+	send_command('bind !f12 gs c warpring') --M12--
 
     select_default_macro_book()
+	set_lockstyle()
 end
 
 function file_unload()
@@ -82,25 +83,26 @@ function file_unload()
 end
 
 function init_gear_sets()
-    --------------------------------------
-    -- Augments
-    --------------------------------------
+
+	------------------------------------------------------------------------------------------------
+	------------------------------------- Toutatis's Cape ------------------------------------------
+	------------------------------------------------------------------------------------------------
 
 	Toutatis = {}
-    Toutatis.TP = { name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','"Store TP"+10',}}
+    Toutatis.TP = { name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Store TP"+10',}}
     Toutatis.WS = { name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','Weapon skill damage +10%',}}
-	
-    --------------------------------------
-    -- Utility Sets
-    --------------------------------------
-	
+
+	------------------------------------------------------------------------------------------------
+	---------------------------------------- Utility Sets ------------------------------------------
+	------------------------------------------------------------------------------------------------	
+
     sets.TreasureHunter = {hands="Plunderer's Armlets +1",feet="Skulker's Poulaines"}
     sets.ExtraRegen = {}
     sets.CapacityMantle = {back="Mecistopins Mantle"}
 
-    --------------------------------------
-    -- Job Abilties Sets
-    --------------------------------------
+	------------------------------------------------------------------------------------------------
+	---------------------------------- Job Abilities Sets ------------------------------------------
+	------------------------------------------------------------------------------------------------
 
     sets.buff['Sneak Attack'] = {}
     sets.buff['Trick Attack'] = {}
@@ -134,9 +136,9 @@ function init_gear_sets()
     sets.precast.Flourish1 = sets.TreasureHunter
     sets.precast.JA.Provoke = sets.TreasureHunter
 	
-    --------------------------------------
-    -- Idle Sets
-    --------------------------------------
+	------------------------------------------------------------------------------------------------
+	---------------------------------------- Idle Sets ---------------------------------------------
+	------------------------------------------------------------------------------------------------	
 
     sets.idle = {
 		ammo="Staunch Tathlum",
@@ -148,17 +150,17 @@ function init_gear_sets()
 		hands="Iuitl Wristbands +1",
 		ring1="Gelatinous Ring +1",
 		ring2="Defending Ring",
-		back="Xucau Mantle",
+		back="Solemnity Cape",
 		waist="Flume Belt",
-		legs="Iuitl Tights +1",
+		legs="Mummu Kecks +1",
 		feet="Jute Boots +1"}
 	sets.idle.Town = sets.idle
 	sets.idle.Regen = sets.idle
 	sets.idle.Weak = sets.idle
 
-    --------------------------------------
-    -- Precast sets
-    --------------------------------------
+	------------------------------------------------------------------------------------------------
+	---------------------------------------- Precast Sets ------------------------------------------
+	------------------------------------------------------------------------------------------------
 	
     sets.precast.FC = {
 		ammo="Sapience Orb", --2
@@ -177,9 +179,9 @@ function init_gear_sets()
     sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {neck="Magoraga Beads"})
     sets.precast.RA = {}
 
-    --------------------------------------
-    -- Midcast Sets
-    --------------------------------------
+	------------------------------------------------------------------------------------------------
+	---------------------------------------- Midcast Sets ------------------------------------------
+	------------------------------------------------------------------------------------------------
 	
 	sets.midcast.FastRecast = sets.precast.FC
 	sets.midcast.Utsusemi = sets.precast.FC
@@ -187,9 +189,9 @@ function init_gear_sets()
 	sets.midcast.RA.Acc = sets.midcast.RA
 	sets.midcast.RA.TH = set_combine(sets.midcast.RA, set.TreasureHunter)
 
-	--------------------------------------
-	-- Engaged Sets
-	--------------------------------------
+	------------------------------------------------------------------------------------------------
+	---------------------------------------- Engaged Sets ------------------------------------------
+	------------------------------------------------------------------------------------------------
 
 	sets.engaged = {
 		ammo="Ginsen",
@@ -220,7 +222,7 @@ function init_gear_sets()
 		ammo="Ginsen",
 		head="Adhemar Bonnet",
 		neck="Erudition Necklace",
-		ear1="Cessance Earring",
+		ear1="Telos Earring",
 		ear2="Suppanomimi",
 		body="Adhemar Jacket",
 		hands="Floral Gauntlets",
@@ -243,8 +245,8 @@ function init_gear_sets()
 		ammo="Ginsen",
 		head="Adhemar Bonnet",
 		neck="Erudition Necklace",
-		ear1="Cessance Earring",
-		ear2="Dignitary's Earring",
+		ear1="Telos Earring",
+		ear2="Cessance Earring",
 		body="Adhemar Jacket",
 		hands=AdhemarHands.A,
 		ring1="Epona's Ring",
@@ -261,22 +263,22 @@ function init_gear_sets()
 	sets.engaged.Evasion.MaxHaste = set_combine(sets.engaged.MaxHaste, {})
 	sets.engaged.PDT.MaxHaste = set_combine(sets.engaged.MaxHaste, {})
 
-    --------------------------------------
-    -- Weaponskill sets
-    --------------------------------------
+	------------------------------------------------------------------------------------------------
+	------------------------------------ Weaponskill Sets ------------------------------------------
+	------------------------------------------------------------------------------------------------
 	
     sets.precast.WS = {}
     sets.precast.WS.Acc = set_combine(sets.precast.WS, {})
 
 	sets.Rudra = {
 		ammo="Jukukik Feather",
-		head=HerculeanHead.DEXWS,
+		head="Lilitu Headpiece",
 		neck="Caro Necklace",
 		ear1="Ishvara Earring",
 		ear2="Moonshade Earring",
 		body="Meghanada Cuirie +1",
 		hands="Meghanada Gloves +1",
-		ring1="Apate Ring",
+		ring1="Ilabrat Ring",
 		ring2="Ramuh Ring +1",
 		back=Toutatis.WS,
 		waist="Grunfeld Rope",
@@ -382,9 +384,9 @@ function init_gear_sets()
 		legs=HerculeanLegs.Nuke,
 		feet="Adhemar Gamashes"}
 	
-	--------------------------------------
-	-- Misc sets
-	--------------------------------------
+	------------------------------------------------------------------------------------------------
+	------------------------------------------- Misc Sets ------------------------------------------
+	------------------------------------------------------------------------------------------------
 
 	sets.resting = {}
 	sets.defense.Evasion = {}
@@ -394,13 +396,13 @@ function init_gear_sets()
 		neck="Loricate Torque +1",
 		ear1="Genmei Earring",
 		ear2="Colossus's Earring",
-		body="Meghanada Cuirie +1",
+		body="Emet Harness +1",
 		hands="Iuitl Wristbands +1",
 		ring1="Gelatinous Ring +1",
 		ring2="Defending Ring",
-		back="Shadow Mantle",
+		back="Solemnity Cape",
 		waist="Flume Belt",
-		legs="Meghanada Chausses +1",
+		legs="Mummu Kecks +1",
 		feet="Herculean Boots"}
 	sets.defense.MDT = {
 		ammo="Staunch Tathlum",
@@ -512,43 +514,35 @@ function job_buff_change(buff, gain)
 	end
 end
 
+function job_self_command(cmdParams, eventArgs)
+	command = cmdParams[1]:lower()
+	if command == 'warpring' then
+		equip({left_ring="Warp Ring"})
+		send_command('gs disable left_ring;wait 10;input /item "Warp Ring" <me>;wait 1;input /item "Warp Ring" <me>;wait 1;input /item "Warp Ring" <me>;wait 10;gs enable left_ring')
+	end
+	command = cmdParams[1]:lower()
+	command2 = cmdParams[2]
+end
+
 function job_update(cmdParams, eventArgs)
 	th_update(cmdParams, eventArgs)
 	determine_haste_group()
 end
 
 function display_current_job_state(eventArgs)
-	local msg = 'Melee'
-	if state.CombatForm.has_value then
-		msg = msg .. ' (' .. state.CombatForm.value .. ')'
-	end
+	local msg = 'THFシ'
 
 	msg = msg .. ': '
-	msg = msg .. state.OffenseMode.value
-
-	if state.HybridMode.value ~= 'Normal' then
-		msg = msg .. '/' .. state.HybridMode.value
-	end
-		msg = msg .. ', WS: ' .. state.WeaponskillMode.value
-
+	msg = msg .. '[Offense: '..state.OffenseMode.current..']'
+	msg = msg .. '[WS: '..state.WeaponskillMode.current .. ']'
+	msg = msg .. '[TH: ' .. state.TreasureMode.value .. ']'
+	
 	if state.DefenseMode.value ~= 'None' then
-		msg = msg .. ', ' .. 'Defense: ' .. state.DefenseMode.value .. ' (' .. state[state.DefenseMode.value .. 'DefenseMode'].value .. ')'
+		msg = msg .. '['..state.DefenseMode.value .. ']'
 	end
-
-	if state.Kiting.value == true then
-		msg = msg .. ', Kiting'
-	end
-
-	if state.PCTargetMode.value ~= 'default' then
-		msg = msg .. ', Target PC: '..state.PCTargetMode.value
-	end
-
-	if state.SelectNPCTargets.value == true then
-		msg = msg .. ', Target NPCs'
-	end
-		msg = msg .. ', TH: ' .. state.TreasureMode.value
-        add_to_chat(122, msg)
-        eventArgs.handled = true
+	
+	add_to_chat(060, msg)
+	eventArgs.handled = true
 end
 
 function check_buff(buff_name, eventArgs)
@@ -616,4 +610,8 @@ function select_default_macro_book()
 	else
 		set_macro_page(1, 3)
 	end
+end
+
+function set_lockstyle()
+	send_command('wait 2; input /lockstyleset 4')
 end
