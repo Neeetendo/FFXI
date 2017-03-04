@@ -1,0 +1,17 @@
+<?xml version="1.1" ?>
+<settings>
+    <global>
+        <AutoDrop>false</AutoDrop>
+        <AutoStack>true</AutoStack>
+        <Delay>0</Delay>
+        <Drop>Dark Crystal,Sleepshroom,Earth Crystal</Drop>
+        <Lot />
+        <Pass>Fire Crystal,Water Crystal,Earth Crystal,Light Crystal,Wind Crystal,Lightng. Crystal,Ice Crystal,Dark Crystal</Pass>
+        <Verbose>false</Verbose>
+    </global>
+    <chinzu>
+        <AutoDrop>true</AutoDrop>
+        <Drop>Wym. Armet -1,Kog. Hatsuburi -1,Summoner&apos;s Pgch.,Saotome Kote,Scout&apos;s Braccae,Argute Belt,Comm. Bottes -1,Argute Loafers -1,Koga Sarashi,Relic Maul,Odious Leather,Assassin&apos;s Cape,Scout&apos;s Belt,Odious Cryptex,Vlr. Leggings -1,Clr. Duckbills -1,Wyrm Fng.Gnt.,Monster Belt,Brd. Slippers -1,Comm. Bottes,Warrior&apos;s Stone,Sao. Kabuto -1,Sorcerer&apos;s Tonban,Cleric&apos;s Cap,Melee Gloves,Bard&apos;s Cape,Warrior&apos;s Mask,Lux Pugio,Clr. Cap -1,Scout&apos;s Beret,War. Calligae -1,Relic Lance,Etoile Bangles,Hedera Cotehardie,Summoner&apos;s Spats,Src. Petasos -1,Mst. Gaiters -1,Relic Bhuj,Mst. Helm -1,Mirage Keffiyeh -1,Cleric&apos;s Belt,Bard&apos;s Slippers,Kudzu Aketon,Warrior&apos;s Calligae,Pantin Dastanas,Mirage Mantle,Houyi&apos;s Gorget,Odious Strongbox,Odious Scale,Assassin&apos;s Pouln.,Sct. Beret -1,Monster Trousers,Smn. Pigaches -1,Comm. Culottes,Argute Pants,Dark Crystal,Etoile Tiara -1,Duelist&apos;s Tights,Bard&apos;s Roundlet,Pantin Churidars,Commodore Belt,Mirage Charuqs,Etoile Shoes,Saotome Sune-Ate,Mirage Bazubands,Koga Hatsuburi,Valor Cape,Scout&apos;s Bracers,Assassin&apos;s Bonnet,Wyrm Greaves,Colossal Skull,Kog. Kyahan -1,Summoner&apos;s Cape,Gibbous Axe,Fajin Boots,War. Mask -1,Vlr. Coronet -1,Abs. Sollerets -1,Src. Sabots -1,Mel. Crown -1,Abs. Burgeonet -1,Duelist&apos;s Boots,Pantin Taj -1,Valor Gauntlets,Etoile Shoes -1,Asn. Poulaines -1,Argute M.board -1,Sleepshroom,Comm. Tricorne -1,Etoile Cape,Koga Hakama,Bard&apos;s Cuffs,Wym. Greaves -1,Sorcerer&apos;s Belt,Cleric&apos;s Pantaln.,Valor Coronet,Pantin Cape,Sao. Koshi-Ate,Abyss Flanchard,Ihintanto,Brd. Roundlet -1,Melee Hose,Argute Bracers,Mel. Gaiters -1,Sct. Socks -1,Mirage Charuqs -1,Cleric&apos;s Duckbills,Pantin Babouches,Ptn. Babouches -1,Melee Cape,Relic Gun,Dls. Boots -1,Dls. Chapeau -1,Sao. Sune-Ate -1,Asn. Bonnet -1,Smn. Horn -1,Saotome Haidate</Drop>
+        <Pass>Saotome Kabuto,Lightng. Crystal,Light Crystal,Runaeic Goad,Duelist&apos;s Chapeau,Melee Crown,Etoile Casaque,Monster Gloves,Dark Crystal,Water Crystal,Warrior&apos;s Lorica,Holy Goad,Fire Crystal,Ice Crystal,Earth Crystal,Pantin Taj</Pass>
+    </chinzu>
+</settings>
