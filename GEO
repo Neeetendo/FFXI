@@ -11,6 +11,7 @@ end
 
 function user_setup()
     state.CastingMode:options('Normal', 'MagicBurst')
+    state.OffenseMode:options('Normal', 'Pet')
 	state.IdleMode:options('Normal', 'Refresh')
 	
 	send_command('bind f5 ma IndiFury stpc')
@@ -41,9 +42,10 @@ function user_setup()
 	send_command('bind !f9 ma GeoTorpor') --M9--
 	send_command('bind !f10') --M10--
 	send_command('bind !f11') --M11--
-	send_command('bind !f12') --M12--
+	send_command('bind !f12 gs c warpring') --M12--
 
     select_default_macro_book()
+	set_lockstyle()
 end
 
 function user_unload()
@@ -81,46 +83,9 @@ function init_gear_sets()
     -- Augments
     --------------------------------------
 	
-    MerlinicHead = {}
-	MerlinicHead.ACC = {name="Merlinic Hood", augments={'Mag. Acc.+25 "Mag.Atk.Bns."+25','Enmity-3','MND+8','Mag. Acc.+12',}}
-    MerlinicHead.MAB = {name="Merlinic Hood", augments={'Mag. Acc.+22 "Mag.Atk.Bns."+22','Magic burst mdg.+6%','INT+6','Mag. Acc.+14','"Mag.Atk.Bns."+13',}}
-	MerlinicHead.FC = {name="Merlinic Hood", augments={'"Mag.Atk.Bns."+14','"Fast Cast"+7','CHR+10',}}
-	
-	MerlinicLegs = {}
-	MerlinicLegs.MAB = {name="Merlinic Shalwar", augments={'Mag. Acc.+22 "Mag.Atk.Bns."+22','Magic Damage +13','Mag. Acc.+4','"Mag.Atk.Bns."+14',}}
-	MerlinicLegs.MB = {name="Merlinic Shalwar", augments={'Mag. Acc.+17 "Mag.Atk.Bns."+17','Magic burst mdg.+10%','INT+5','Mag. Acc.+13','"Mag.Atk.Bns."+10',}}
-	
-	MerlinicFeet = {}
-	MerlinicFeet.Refresh = {name="Merlinic Crackows", augments={'Attack+24','CHR+10','"Refresh"+1','Mag. Acc.+9 "Mag.Atk.Bns."+9',}}
-	MerlinicFeet.MAB = {name="Merlinic Crackows", augments={'Mag. Acc.+24 "Mag.Atk.Bns."+24','CHR+1','Mag. Acc.+15','"Mag.Atk.Bns."+11',}}
-	MerlinicFeet.MB = {name="Merlinic Crackows", augments={'Mag. Acc.+21 "Mag.Atk.Bns."+21','Magic burst mdg.+7%','MND+3','"Mag.Atk.Bns."+12',}}
-	MerlinicFeet.FC = {name="Merlinic Crackows", augments={'Attack+12','"Fast Cast"+7','MND+7','Mag. Acc.+13',}}
-	MerlinicFeet.Dark = {name="Merlinic Crackows", augments={'Mag. Acc.+27','"Drain" and "Aspir" potency +11',}}
-	
-	TechineHead = {}
-	TechineHead.Enhance ={}
-	TelchineHead.Siphon = {name="Telchine Cap", augments={'"Elemental Siphon"+35',}}
-	
-	TelchineBody = {}
-	TelchineBody.Pet = {name="Telchine Chas.", augments={'Pet: "Regen"+3',}}
-	TelchineBody.Enhance = {name="Telchine Chas.", augments={'Pet: "Mag.Atk.Bns."+10','Pet: "Regen"+3','Enh. Mag. eff. dur. +10',}}
-	TelchineBody.Regen = {}
-	TelchineBody.Siphon = {}
-	
-	TelchineHands = {}
-	Telchine.Enhance = {}
-	TelchineHands.Siphon = {name="Telchine Gloves", augments={'"Elemental Siphon"+10',}}
-	
-	TelchineLegs = {}
-	TelchineLegs.Pet = {name="Telchine Braconi", augments={'DEF+14','Pet: "Regen"+3','Pet: Damage taken -2%',}}
-	TelchineLegs.Enhance = {name="Telchine Braconi", augments={'Enh. Mag. eff. dur. +8',}}
-	TelchineLegs.Regen = {}
-	TelchineLegs.Siphon = {}
-	
-	TelchineFeet = {}
-	TelchineFeet.Pet = {}
-	TelchineFeet.Enhance = {name="Telchine Pigaches", augments={'Enh. Mag. eff. dur. +9',}}
-	TelchineFeet.Regen = {name="Telchine Pigaches", augments={'"Regen" potency+3',}}
+	Nantosuelta = {}
+	Nantosuelta.Nuke = { name="Nantosuelta's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10',}}
+	Nantosuelta.Pet = { name="Nantosuelta's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Pet: "Regen"+10',}}
 	
     --------------------------------------
     -- Job Abilties Sets
@@ -129,7 +94,7 @@ function init_gear_sets()
     sets.precast.JA.Bolster = {body="Bagua Tunic +1"}
 	sets.precast.JA['Mending Halation'] = {legs="Bagua Pants +1"}
 	sets.precast.JA['Radial Arcana'] = {feet="Bagua Sandals +1"}
-    sets.precast.JA['Life cycle'] = {body="Geomancy Tunic +1",back="Nantosuelta's Cape"}
+    sets.precast.JA['Life cycle'] = {body="Geomancy Tunic +1",back=Nantosuelta.Pet}
 	sets.precast.JA['Full Circle'] = {head="Azimuth Hood +1",hands="Bagua Mitaines +1"}
 
     --------------------------------------
@@ -148,23 +113,23 @@ function init_gear_sets()
 		hands="Bagua Mitaines +1",
 		ring1="Gelatinous Ring +1",
 		ring2="Defending Ring",
-		back="Shadow Mantle",
+		back="Solemnity Cape",
 		waist="Slipor Sash",
 		legs="Assiduity Pants +1",
 		feet="Geomancy Sandals +1",}
     sets.idle.Pet = {
-		main="Sucellus",
+		main="Idris",
 		sub="Genmei Shield",
 		range="Dunna",
 		head="Azimuth Hood +1",
 		neck="Loricate Torque +1",
-		ear1="Handler's Earring +1",
-		ear2="Handler's Earring",
+		ear1="Genmei Earring",
+		ear2="Etiolation Earring",
 		body=TelchineBody.Pet,
 		hands="Geomancy Mitaines +1",
 		ring1="Gelatinous Ring +1",
 		ring2="Defending Ring",
-		back="Lifestream Cape",
+		back=Nantosuelta.Pet,
 		waist="Isa Belt",
 		legs=TelchineLegs.Pet,
 		feet="Bagua Sandals +1"}
@@ -177,37 +142,35 @@ function init_gear_sets()
     --------------------------------------
 	
     sets.precast.FC = {
-		main="Sucellus", --5
-		sub="Chanter's Shield", --3
 		range="Dunna", --3
 		head=MerlinicHead.FC, --15
-		neck="Jeweled Collar", --3
+		neck="Baetyl Pendant", --4
 		ear1="Loquacious Earring", --2
 		ear2="Etiolation Earring", --1
 		body="Anhur Robe", --10
-		hands="Repartie Gloves", --2
-		ring1="Prolix Ring", --2
+		--hands="Repartie Gloves", --2
+		ring1="Rahab Ring", --2
 		ring2="Weatherspoon Ring", --5
 		back="Lifestream Cape", --7
 		waist="Witful Belt", --3
 		legs="Geomancy Pants +1", --11
 		feet=MerlinicFeet.FC} --12
-	sets.precast.Geomancy = sets.precast.FC
+	sets.precast.Geomancy = set_combine(sets.precast.FC, {main="Idris"})
     sets.precast.FC['Elemental Magic'] = set_combine(sets.precast.FC, {
-		main="Grioavolr",
+		main="Grioavolr", --4
 		sub="Niobid Strap",
 		ammo="Impatiens",
 		ear2="Barkarole Earring", --3
 		hands="Bagua Mitaines +1"}) --12
-	sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC,{ammo="Impatiens",waist="Siegel Sash"})
+	sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC,{ammo="Impatiens"})
     sets.precast.FC['Enfeebling Magic'] = set_combine(sets.precast.FC, {ammo="Impatiens"})
     sets.precast.FC.Cure = set_combine(sets.precast.FC, {
-		main="Serenity",
+		main="Serenity", --10
 		sub="Niobid Strap",
 		ammo="Impatiens",
-		head="Vanya Hood",
-		hands="Vanya Cuffs",
-		feet="Vanya Clogs"})
+		head="Vanya Hood", --7
+		hands="Vanya Cuffs", --7
+		feet="Vanya Clogs"}) --15
     sets.precast.FC.Impact = {head=empty,body="Twilight Cloak"}
 
     --------------------------------------
@@ -217,33 +180,32 @@ function init_gear_sets()
     sets.midcast.FastRecast = sets.precast.FC
     sets.midcast.Geomancy = {
 		range="Dunna",
+		main="Idris",
 		head="Vanya Hood",
 		neck="Incanter's Torque",
 		body="Amalric Doublet",
 		hands="Geomancy Mitaines +1",
 		ring1="Stikini Ring",
+		waist="Rumination Sash",
 		back="Lifestream Cape",
-		legs="Bagua Pants +1",
 		feet="Medium's Sabots"}
-    sets.midcast.Geomancy.Indi = set_combine(sets.midcast.Geomancy, {feet="Azimuth Gaiters +1"})
+    sets.midcast.Geomancy.Indi = set_combine(sets.midcast.Geomancy, {main="Idris",feet="Azimuth Gaiters +1"})
 	sets.midcast['Enhancing Magic'] = {
-		main="Serenity",
-		head="Befouled Crown",
-		ear1="Andoaa Earring",
-		--ear2="Augmenting Earring",
+		head=TelchineHead.Enhance,
 		neck="Incanter's Torque",
+		ear1="Andoaa Earring",
 		body=TelchineBody.Enhance,
-		--hands="Ayao's Gages",
+		hands=TelchineHands.Enhance,
+		ring1="Stikini Ring",
 		back="Perimede Cape",
-		waist="Olympus Sash",
 		legs=TelchineLegs.Enhance,
 		feet=TelchineFeet.Enhance}
 	sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], {
 		neck="Nodens Gorget",
 		ear2="Earthcry Earring",
 		waist="Siegel Sash",
-		legs="Shedir Seraweels",
-		feet="Regal Pumps +1"})
+		legs="Shedir Seraweels"})
+	sets.midcast.Haste = set_combine(sets.midcast['Enhancing Magic'])
 	sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'], {head="Amalric Coif",back="Grapevine Cape",waist="Gishdubar Sash"})
 	sets.midcast['Elemental Magic'] = {
 		main="Grioavolr",
@@ -253,17 +215,16 @@ function init_gear_sets()
 		neck="Sanctity Necklace",
 		ear1="Friomisi Earring",
 		ear2="Barkarole Earring",
-		body="Jhakri Robe +1",
+		body="Merlinic Jubbah",
 		hands="Jhakri Cuffs +1",
 		ring1="Shiva Ring +1",
 		ring2="Acumen Ring",
-		back="Nantosuelta's Cape",
+		back=Nantosuelta.Nuke,
 		waist=gear.ElementalObi,
 		legs=MerlinicLegs.MAB,
 		feet=MerlinicFeet.MAB}
 	sets.midcast['Elemental Magic'].MagicBurst = set_combine(sets.midcast['Elemental Magic'], {
 		neck="Mizukage-no-Kubikazari",
-		body="Merlinic Jubbah",
 		hands="Amalric Gages",
 		ring2="Mujin Band",
 		legs=MerlinicLegs.MB,
@@ -272,7 +233,7 @@ function init_gear_sets()
 	sets.midcast['Enfeebling Magic'] = {
 		main="Grioavolr",
 		sub="Niobid Strap",
-		ammo="Hydrocera",
+		range="Dunna",
 		head=MerlinicHead.ACC,
 		neck="Incanter's Torque",
 		ear1="Barkarole Earring",
@@ -281,8 +242,8 @@ function init_gear_sets()
 		hands="Azimuth Gloves +1",
 		ring1="Stikini Ring",
 		ring2="Weatherspoon Ring",
-		back="Nantosuelta's Cape",
-		waist="Eschan Stone",
+		back=Nantosuelta.Nuke,
+		waist="Luminary Sash",
 		legs="Psycloth Lappas",
 		feet="Medium's Sabots"}
 	sets.midcast['Dark Magic'] = {
@@ -320,12 +281,12 @@ function init_gear_sets()
     sets.midcast.Cure = {
 		main="Serenity",
 		sub="Niobid Strap",
-		ammo="Quartz Tathlum +1",
+		ammo="Hydrocera",
 		head="Vanya Hood",
 		neck="Incanter's Torque",
 		ear1="Healing Earring",
 		ear2="Beatific Earring",
-		body="Vrikodara Jupon",
+		body="Vanya Robe",
 		hands="Vanya Cuffs",
 		ring1="Sirona's Ring",
 		ring2="Haoma's Ring",
@@ -339,10 +300,12 @@ function init_gear_sets()
 		ammo="Impatiens",
 		head="Vanya Hood",
 		neck="Malison Medallion",
-		body="Vrikodara Jupon",
+		ear1="Healing Earring",
+		ear2="Beatific Earring",
+		body="Vanya Robe",
 		--hands="Hieros Mittens",
-		ring1="Ephedra Ring",
-		ring2="Ephedra Ring",
+		ring1="Haoma's Ring",
+		ring2="Sirona's Ring",
 		back="Tempered Cape +1",
 		waist="Bishop's Sash",
 		legs="Geomancy Pants +1",
@@ -354,18 +317,34 @@ function init_gear_sets()
     --------------------------------------
 	
     sets.engaged = {
-		main="Sucellus",
+		main="Idris",
+		sub="Genmei Shield",
+		range="Dunna",
+		head="Jhakri Coronal +1",
+		neck="Sanctity Necklace",
+		ear1="Dignitary's Earring",
+		ear2="Telos Earring",
+		body="Onca Suit",
+		hands=empty,
+		ring1="Petrov Ring",
+		ring2="Rajas Ring",
+		back=Nantosuelta.Pet,
+		waist="Windbuffet Belt +1",
+		legs=empty,
+		feet=empty}
+    sets.engaged.Pet = {
+		main="Idris",
 		sub="Genmei Shield",
 		range="Dunna",
 		head="Azimuth Hood +1",
 		neck="Loricate Torque +1",
-		ear1="Handler's Earring +1",
-		ear2="Handler's Earring",
+		ear1="Genmei Earring",
+		ear2="Etiolation Earring",
 		body=TelchineBody.Pet,
 		hands="Geomancy Mitaines +1",
 		ring1="Gelatinous Ring +1",
 		ring2="Defending Ring",
-		back="Lifestream Cape",
+		back=Nantosuelta.Pet,
 		waist="Isa Belt",
 		legs=TelchineLegs.Pet,
 		feet="Bagua Sandals +1"}
@@ -376,12 +355,53 @@ function init_gear_sets()
 
     sets.precast.WS = {}
 	
+	sets.Exudation = {
+		ammo="Pemphredo Tathlum",
+		head="Jhakri Coronal +1",
+		neck="Caro Necklace",
+		ear1="Moonshade Earring",
+		ear2="Ishvara Earring",
+		body="Jhakri Robe +1",
+		hands="Jhakri Cuffs +1",
+		ring1="Shiva Ring +1",
+		ring2="Stikini Ring",
+		back=Nantosuelta.Nuke,
+		waist="Luminary Sash",
+		legs="Telchine Braconi",
+		feet="Jhakri Pigaches +1"}
+    sets.precast.WS['Exudation'] = set_combine(sets.precast.WS, sets.Exudation)
+    sets.precast.WS['Exudation'].Low = set_combine(sets.precast.WS['Exudation'], {})
+    sets.precast.WS['Exudation'].Mid = set_combine(sets.precast.WS['Exudation'].Low, {})
+    sets.precast.WS['Exudation'].Acc = set_combine(sets.precast.WS['Exudation'].Mid, {})
+
+	sets.Hexa = {
+		ammo="Jukukik Feather",
+		head="Jhakri Coronal +1",
+		neck=gear.ElementalGorget,
+		ear1="Brutal Earring",
+		ear2="Moonshade Earring",
+		body="Jhakri Robe +1",
+		hands="Jhakri Cuffs +1",
+		ring1="Ifrit Ring +1",
+		ring2="Begrudging Ring",
+		back=Nantosuelta.Nuke,
+		waist=gear.ElementalBelt,
+		legs="Telchine Braconi",
+		feet="Jhakri Pigaches +1"}
+    sets.precast.WS['Hexa Strike'] = set_combine(sets.precast.WS, sets.Hexa)
+    sets.precast.WS['Hexa Strike'].Low = set_combine(sets.precast.WS['Hexa Strike'], {})
+    sets.precast.WS['Hexa Strike'].Mid = set_combine(sets.precast.WS['Hexa Strike'].Low, {})
+    sets.precast.WS['Hexa Strike'].Acc = set_combine(sets.precast.WS['Hexa Strike'].Mid, {})
+	
     --------------------------------------
     -- Misc Sets
     --------------------------------------
 	
     sets.resting = {}
 	sets.defense.PDT = {
+		main="Mafic Cudgel",
+		sub="Genmei Shield",
+		range="Dunna",
 		head="Hagondes Hat +1",
 		neck="Loricate Torque +1",
 		ear1="Genmei Earring",
@@ -390,7 +410,7 @@ function init_gear_sets()
 		hands=empty,
 		ring1="Gelatinous Ring +1",
 		ring2="Defending Ring",
-		back="Shadow Mantle",
+		back="Solemnity Cape",
 		waist="Slipor Sash",
 		legs=empty,
 		feet=empty}
@@ -461,6 +481,15 @@ function job_get_spell_map(spell, default_spell_map)
     end
 end
 
+function job_self_command(cmdParams, eventArgs)
+	command = cmdParams[1]:lower()
+	if command == 'warpring' then
+		equip({left_ring="Warp Ring"})
+		send_command('gs disable left_ring;wait 10;input /item "Warp Ring" <me>;wait 1;input /item "Warp Ring" <me>;wait 1;input /item "Warp Ring" <me>;wait 10;gs enable left_ring')
+	end
+	command2 = cmdParams[2]
+end
+
 function customize_idle_set(idleSet)
     if player.mpp < 51 then
         idleSet = set_combine(idleSet, sets.latent_refresh)
@@ -469,6 +498,24 @@ function customize_idle_set(idleSet)
         idleSet = set_combine(idleSet, sets.buff.Doom)
     end
     return idleSet
+end
+
+function display_current_job_state(eventArgs)
+    local msg = 'GEO風'
+
+	msg = msg .. ': '
+	msg = msg .. '[Casting: '..state.CastingMode.current..']'
+	msg = msg .. ' '
+	msg = msg .. '[Offense: '..state.OffenseMode.current.. ']'
+	msg = msg .. ' '
+	msg = msg .. ' '
+    if state.DefenseMode.value ~= 'None' then
+        local defMode = state[state.DefenseMode.value ..'DefenseMode'].current
+        msg = msg .. ', Defense: '..state.DefenseMode.value..' '..defMode
+    end
+	
+    add_to_chat(060, msg)
+    eventArgs.handled = true
 end
 
 function customize_melee_set(meleeSet)
@@ -498,4 +545,8 @@ function select_default_macro_book()
     else
         set_macro_page(1, 6)
     end
+end
+
+function set_lockstyle()
+	send_command('wait 2; input /lockstyleset 8')
 end
