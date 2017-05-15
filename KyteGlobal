@@ -1,0 +1,83 @@
+	HerculeanHead = {}
+	HerculeanHead.FC = { name="Herculean Helm", augments={'"Fast Cast"+5',}}
+	HerculeanHead.DW = { name="Herculean Helm", augments={'Attack+11','"Dual Wield"+5','DEX+4','Accuracy+11',}}
+	HerculeanHead.Nuke = { name="Herculean Helm", augments={'Mag. Acc.+20 "Mag.Atk.Bns."+20','Weapon skill damage +3%','Mag. Acc.+7',}}
+	HerculeanHead.DEXWS = { name="Herculean Helm", augments={'Attack+17','Weapon skill damage +5%','DEX+9',}}
+	HerculeanHead.CritDEX = { name="Herculean Helm", augments={'Accuracy+24 Attack+24','Crit. hit damage +4%','DEX+8','Attack+12',}}
+	
+	HerculeanBody = {}
+	HerculeanBody.RangeWS = { name="Herculean Vest", augments={'Rng.Acc.+15 Rng.Atk.+15','Weapon skill damage +4%','AGI+8','Rng.Acc.+9',}}
+	HerculeanBody.TA = { name="Herculean Vest", augments={'Accuracy+18','"Triple Atk."+4','DEX+10',}}
+	HerculeanBody.STRWS = { name="Herculean Vest", augments={'Accuracy+28','Weapon skill damage +3%','STR+10','Attack+10',}}
+	
+	HerculeanHands = {}
+	HerculeanHands.Refresh = { name="Herculean Gloves", augments={'Potency of "Cure" effect received+4%','Attack+10','"Refresh"+2','Accuracy+17 Attack+17','Mag. Acc.+3 "Mag.Atk.Bns."+3',}}
+	HerculeanHands.DT = { name="Herculean Gloves", augments={'"Waltz" potency +8%','Accuracy+27','Damage taken-3%','Accuracy+14 Attack+14','Mag. Acc.+16 "Mag.Atk.Bns."+16',}}
+	HerculeanHands.TA = { name="Herculean Gloves", augments={'Accuracy+11','"Triple Atk."+3','DEX+10','Attack+7',}}
+	HerculeanHands.DEXWS = { name="Herculean Gloves", augments={'Attack+12','Weapon skill damage +4%','DEX+7','Accuracy+9',}}
+	HerculeanHands.STRWS = { name="Herculean Gloves", augments={'Attack+26','Weapon skill damage +3%','STR+7','Accuracy+13',}}
+	HerculeanHands.CritDEX = { name="Herculean Gloves", augments={'Rng.Acc.+16','Crit.hit rate+3','DEX+10','Accuracy+7','Attack+8',}}
+	
+	HerculeanLegs = {}
+	HerculeanLegs.RangeWS = { name="Herculean Trousers", augments={'Rng.Acc.+21 Rng.Atk.+21','Weapon skill damage +4%','STR+5',}}
+	HerculeanLegs.DW = { name="Herculean Trousers", augments={'Accuracy+23','"Dual Wield"+5','AGI+6','Attack+14',}}
+	HerculeanLegs.Nuke = { name="Herculean Trousers", augments={'Mag. Acc.+19 "Mag.Atk.Bns."+19','Magic burst dmg.+1%','STR+9','Mag. Acc.+13','"Mag.Atk.Bns."+12',}}
+	HerculeanLegs.FC = { name="Herculean Trousers", augments={'"Mag.Atk.Bns."+19','"Fast Cast"+5','STR+3',}}
+	
+	HerculeanFeet = {}
+	HerculeanFeet.RangeWS = { name="Herculean Boots", augments={'Rng.Acc.+24 Rng.Atk.+24','Weapon skill damage +5%','Rng.Acc.+3',}}
+	HerculeanFeet.DW = { name="Herculean Boots", augments={'Accuracy+24','"Dual Wield"+5','AGI+1','Attack+6',}}
+	HerculeanFeet.TA = { name="Herculean Boots", augments={'Accuracy+19','"Triple Atk."+4','DEX+10','Attack+9',}}
+	HerculeanFeet.DEXWS = { name="Herculean Boots", augments={'Accuracy+27','Weapon skill damage +2%','DEX+11','Attack+14',}}
+	HerculeanFeet.STRWS = { name="Herculean Boots", augments={'Weapon skill damage +4%','STR+8','Accuracy+12','Attack+2',}}
+	HerculeanFeet.CritAGI = { name="Herculean Boots", augments={'Accuracy+21','Crit.hit rate+4','AGI+15',}}
+	HerculeanFeet.Acc = { name="Herculean Boots", augments={'Accuracy+25 Attack+25','Crit.hit rate+2','DEX+10','Accuracy+10','Attack+12',}}
+	HerculeanFeet.Refresh = { name="Herculean Boots", augments={'MND+10','Attack+2','"Refresh"+2',}}
+
+    MerlinicHead = {}
+	MerlinicHead.ACC = { name="Merlinic Hood", augments={'Mag. Acc.+25 "Mag.Atk.Bns."+25','Enmity-3','MND+8','Mag. Acc.+12',}}
+    MerlinicHead.MAB = { name="Merlinic Hood", augments={'Mag. Acc.+22 "Mag.Atk.Bns."+22','Magic burst dmg.+6%','INT+6','Mag. Acc.+14','"Mag.Atk.Bns."+13',}}
+	MerlinicHead.FC = { name="Merlinic Hood", augments={'"Mag.Atk.Bns."+14','"Fast Cast"+7','CHR+10',}}
+	
+	MerlinicLegs = {}
+	MerlinicLegs.MAB = { name="Merlinic Shalwar", augments={'Mag. Acc.+22 "Mag.Atk.Bns."+22','Magic Damage +13','Mag. Acc.+4','"Mag.Atk.Bns."+14',}}
+	MerlinicLegs.MB = { name="Merlinic Shalwar", augments={'Mag. Acc.+17 "Mag.Atk.Bns."+17','Magic burst dmg.+10%','INT+5','Mag. Acc.+13','"Mag.Atk.Bns."+10',}}
+	
+	MerlinicFeet = {}
+	MerlinicFeet.Refresh = { name="Merlinic Crackows", augments={'Attack+24','CHR+10','"Refresh"+1','Mag. Acc.+9 "Mag.Atk.Bns."+9',}}
+	MerlinicFeet.MAB = { name="Merlinic Crackows", augments={'Mag. Acc.+24 "Mag.Atk.Bns."+24','CHR+1','Mag. Acc.+15','"Mag.Atk.Bns."+11',}}
+	MerlinicFeet.MB = { name="Merlinic Crackows", augments={'Mag. Acc.+21 "Mag.Atk.Bns."+21','Magic burst dmg.+7%','MND+3','"Mag.Atk.Bns."+12',}}
+	MerlinicFeet.FC = { name="Merlinic Crackows", augments={'Attack+12','"Fast Cast"+7','MND+7','Mag. Acc.+13',}}
+	MerlinicFeet.Dark = { name="Merlinic Crackows", augments={'Mag. Acc.+27','"Drain" and "Aspir" potency +11',}}
+
+	TelchineHead = {}
+	TelchineHead.Enhance = { name="Telchine Cap", augments={'Spell interruption rate down -10%','Enh. Mag. eff. dur. +7',}}
+	TelchineHead.Siphon = { name="Telchine Cap", augments={'"Elemental Siphon"+35',}}
+	
+	TelchineBody = {}
+	TelchineBody.Pet = { name="Telchine Chas.", augments={'Pet: "Regen"+3',}}
+	TelchineBody.Enhance = { name="Telchine Chas.", augments={'Pet: "Mag.Atk.Bns."+10','"Fast Cast"+3','Enh. Mag. eff. dur. +10',}}
+	TelchineBody.Regen = {}
+	TelchineBody.Siphon = {}
+	
+	TelchineHands = {}
+	TelchineHands.Enhance = { name="Telchine Gloves", augments={'Potency of "Cure" effect received+6%','Enh. Mag. eff. dur. +9',}}
+	TelchineHands.Siphon = { name="Telchine Gloves", augments={'"Elemental Siphon"+10',}}
+	
+	TelchineLegs = {}
+	TelchineLegs.Pet = { name="Telchine Braconi", augments={'DEF+14','Pet: "Regen"+3','Pet: Damage taken -2%',}}
+	TelchineLegs.Enhance = { name="Telchine Braconi", augments={'"Fast Cast"+4','Enh. Mag. eff. dur. +8',}}
+	TelchineLegs.Regen = {}
+	TelchineLegs.Siphon = {}
+	
+	TelchineFeet = {}
+	TelchineFeet.Pet = {}
+	TelchineFeet.Enhance = { name="Telchine Pigaches", augments={'Spell interruption rate down -8%','Enh. Mag. eff. dur. +9',}}
+	
+	AdhemarHands = {}
+	AdhemarHands.A = { name="Adhemar Wristbands", augments={'DEX+10','AGI+10','Accuracy+15',}}
+	AdhemarHands.C = { name="Adhemar Wristbands", augments={'AGI+10','Rng.Acc.+15','Rng.Atk.+15',}}
+	
+	ChironicHands = {}
+	ChironicHands.TH = { name="Chironic Gloves", augments={'Accuracy+15','"Dbl.Atk."+2','"Treasure Hunter"+2','Accuracy+8 Attack+8','Mag. Acc.+15 "Mag.Atk.Bns."+15',}}
+	ChironicHands.Nuke = { name="Chironic Gloves", augments={'Mag. Acc.+20 "Mag.Atk.Bns."+20','"Cure" potency +4%','CHR+10','Mag. Acc.+6','"Mag.Atk.Bns."+14',}}
