@@ -304,6 +304,7 @@ function job_precast(spell, action, spellMap, eventArgs)
         -- no gear swaps if we're paralyzed, to avoid blinking while trying to remove it.
         eventArgs.handled = true
     end
+end
 
 function job_post_midcast(spell, action, spellMap, eventArgs)
     -- Apply Divine Caress boosting items as highest priority over other gear, if applicable.
