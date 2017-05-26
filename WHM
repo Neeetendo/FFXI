@@ -80,7 +80,7 @@ function init_gear_sets()
 		--neck="Incanter's Torque",
 		ear1="Glorious Earring",
 		ear2="Nourishing earring +1",
-        body="Ebers Bliaud",
+        body="Ebers Bliaud +1",
 		hands="Theophany Mitts +2",
 		ring1="Lebeche Ring",
 		ring2="Janniston Ring",
@@ -152,7 +152,7 @@ function init_gear_sets()
 		ammo="Impatiens",
         head="Ebers Cap",
 		neck="Malison Medallion",
-        body="Ebers Bliaud",
+        body="Ebers Bliaud +1",
 		hands="Fanatic Gloves",
 		ring1="Ephedra Ring +1",
 		ring2="Sirona's Ring",
@@ -187,7 +187,7 @@ function init_gear_sets()
     sets.midcast.Auspice =  set_combine(sets.midcast['Enhancing Magic'], {feet="Ebers Duckbills"})
     sets.midcast.BarElement = set_combine(sets.midcast['Enhancing Magic'], {
         head="Ebers Cap",
-        body="Ebers Bliaud",
+        body="Ebers Bliaud +1",
 		hands="Ebers Mitts",
 		ring1="Stikini Ring",
 		legs="Piety pantaloons +1",
