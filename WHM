@@ -45,9 +45,9 @@ function init_gear_sets()
     sets.precast.FC['Healing Magic'] = set_combine(sets.precast.FC, {})
     sets.precast.FC.StatusRemoval = sets.precast.FC['Healing Magic']
     sets.precast.FC.Cure = set_combine(sets.precast.FC['Healing Magic'], {
-		head="Piety Cap +1",
+		head="Piety Cap",
 		ear2="Nourishing earring +1",
-		legs="Ebers Pants"})
+		legs="Ebers Pants +1"})
     sets.precast.FC.Curaga = sets.precast.FC.Cure
     sets.precast.FC.CureSolace = sets.precast.FC.Cure
 
@@ -55,8 +55,8 @@ function init_gear_sets()
 	---------------------------------- Job Abilities Sets ------------------------------------------
 	------------------------------------------------------------------------------------------------
 	
-    sets.precast.JA.Benediction = {body="Piety Briault +1"}
-	sets.precast.JA.Devotion = {head="Piety Cap +1"}
+    sets.precast.JA.Benediction = {body="Piety Briault"}
+	sets.precast.JA.Devotion = {head="Piety Cap"}
     sets.precast.Waltz = {}
 	
 	------------------------------------------------------------------------------------------------
@@ -76,8 +76,7 @@ function init_gear_sets()
 		sub="Sors Shield",
 		ammo="Impatiens",
         head="Vanya Hood",
-		neck="Nuna Gorget +1",
-		--neck="Incanter's Torque",
+		neck="Incanter's Torque",
 		ear1="Glorious Earring",
 		ear2="Nourishing earring +1",
         body="Ebers Bliaud +1",
@@ -86,24 +85,23 @@ function init_gear_sets()
 		ring2="Janniston Ring",
         back="Alaunus's Cape",
 		waist="Austerity Belt +1",
-		legs="Ebers Pantaloons",
+		legs="Ebers Pantaloons +1",
 		feet="Kaykaus Boots"}
     sets.midcast.Cure = {
 		main="Queller Rod",
 		sub="Sors Shield",
 		ammo="Impatiens",
         head="Vanya Hood",
-		neck="Nuna Gorget +1",
-		--neck="Incanter's Torque",
+		neck="Incanter's Torque",
 		ear1="Glorious Earring",
 		ear2="Nourishing earring +1",
-        body="Theophany Briault +2",
+        body="Theophany Briault +1",
 		hands="Theophany Mitts +2",
 		ring1="Lebeche Ring",
 		ring2="Janniston Ring",
         back="Alaunus's Cape",
 		waist="Austerity Belt +1",
-		legs="Ebers Pantaloons",
+		legs="Ebers Pantaloons +1",
 		feet="Kaykaus Boots"}
     sets.midcast.CureWithLightWeather = set_combine(sets.midcast.CureSolace, {
 		main="Chatoyant Staff",
@@ -118,13 +116,13 @@ function init_gear_sets()
 		neck="Nuna Gorget +1",
 		ear1="Glorious Earring",
 		ear2="Nourishing earring +1",
-        body="Theophany Briault +2",
+        body="Theophany Briault +1",
 		hands="Kaykaus Cuffs",
 		ring1="Leviathan ring +1",
 		ring2="Janniston Ring",
         back="Alaunus's Cape",
 		waist="Austerity Belt +1",
-		legs="Ebers Pantaloons",
+		legs="Ebers Pantaloons +1",
 		feet="Kaykaus Boots"}
     sets.midcast.CuragaWithLightWeather = set_combine(sets.midcast.Curaga, {
 		main="Chatoyant Staff",
@@ -134,11 +132,10 @@ function init_gear_sets()
     sets.midcast.CureMelee = {
 		ammo="Impatiens",
         head="Vanya Hood",
-		neck="Nuna Gorget +1",
-		--neck="Incanter's Torque",
+		neck="Incanter's Torque",
 		ear1="Glorious Earring",
 		ear2="Nourishing earring +1",
-        body="Theophany Briault +2",
+        body="Theophany Briault +1",
 		hands="Theophany Mitts +2",
 		ring1="Lebeche Ring",
 		ring2="Janniston Ring",
@@ -150,7 +147,7 @@ function init_gear_sets()
 		main="Beneficus",
 		sub="Sors Shield",
 		ammo="Impatiens",
-        head="Ebers Cap",
+        head="Ebers Cap +1",
 		neck="Malison Medallion",
         body="Ebers Bliaud +1",
 		hands="Fanatic Gloves",
@@ -158,9 +155,9 @@ function init_gear_sets()
 		ring2="Sirona's Ring",
         back="Alaunus's Cape",
 		waist="Witful Belt",
-		legs="Theophany Pantaloons +2",
+		legs="Theophany Pantaloons +1",
 		feet="Gendewitha Galoshes +1"}
-    sets.midcast.StatusRemoval = {head="Ebers Cap",legs="Ebers Pantaloons"}
+    sets.midcast.StatusRemoval = {head="Ebers Cap +1",legs="Ebers Pantaloons"}
     sets.midcast['Enhancing Magic'] = {
 		main="Beneficus",
 		sub="Sors Shield",
@@ -173,7 +170,7 @@ function init_gear_sets()
         back="Perimede Cape",
 		waist="Olympus Sash",
 		legs="Telchine Braconi",
-		feet="Theophany Duckbills +2"}
+		feet="Theophany Duckbills +1"}
     sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], {
 		neck="Nodens Gorget",
 		ear2="Earthcry Earring",
@@ -186,17 +183,17 @@ function init_gear_sets()
 		legs="Shedir Seraweels",})
     sets.midcast.Auspice =  set_combine(sets.midcast['Enhancing Magic'], {feet="Ebers Duckbills"})
     sets.midcast.BarElement = set_combine(sets.midcast['Enhancing Magic'], {
-        head="Ebers Cap",
+        head="Ebers Cap +1",
         body="Ebers Bliaud +1",
 		hands="Ebers Mitts",
 		ring1="Stikini Ring",
-		legs="Piety pantaloons +1",
-		feet="Ebers Duckbills"})
+		legs="Piety pantaloons",
+		feet="Ebers Duckbills +1"})
     sets.midcast.Regen = set_combine(sets.midcast['Enhancing Magic'], {
 		main="Bolelabunga",
         body="Piety Briault +1",
-		hands="Ebers Mitts",
-        legs="Theophany Pantaloons +2"})
+		hands="Ebers Mitts +1",
+        legs="Theophany Pantaloons"})
     sets.midcast.Protectra =  set_combine(sets.midcast['Enhancing Magic'], {ring1="Sheltered Ring",feet="Piety Duckbills +1"})
     sets.midcast.Shellra =  set_combine(sets.midcast['Enhancing Magic'], {ring1="Sheltered Ring",legs="Piety Pantaloons +1"})
     sets.midcast['Divine Magic'] = {
@@ -227,7 +224,7 @@ function init_gear_sets()
         back="Refraction Cape",
 		waist="Demonry Sash",
 		legs="Bokwus Slops",
-		feet="Piety Duckbills +1"}
+		feet="Piety Duckbills"}
     sets.midcast.MndEnfeebles = {
 		--main="Grioavolr",
 		--sub="Enki Strap",
@@ -254,15 +251,15 @@ function init_gear_sets()
 		main="Bolelabunga", 
 		sub="Genbu's Shield",
 		ammo="Homiliary",
-        head="Inyanga Tiara +1",
+        head="Befouled Crown",
 		neck="Loricate Torque +1",
 		ear1="Moonshade Earring",
 		ear2="Etiolation Earring",
-        body="Theophany Briault +2",
+        body="Ebers Bliaud +1",
 		hands="Serpentes Cuffs",
 		ring1="Sheltered Ring",
 		ring2="Defending Ring",
-        back="Cheviot Cape",
+        back="Solemnity Cape",
 		waist="Slipor Sash",
 		legs="Assiduity pants +1",
 		feet="Serpentes Sabots"}
@@ -296,7 +293,7 @@ function init_gear_sets()
 	------------------------------------------------------------------------------------------------
 	
     -- Buff sets: Gear that needs to be worn to actively enhance a current player buff.
-    sets.buff['Divine Caress'] = {hands="Ebers Mitts",back="Mending Cape"}
+    sets.buff['Divine Caress'] = {hands="Ebers Mitts +1",back="Mending Cape"}
 end
 
 function job_precast(spell, action, spellMap, eventArgs)
