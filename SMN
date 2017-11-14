@@ -133,7 +133,7 @@ function user_setup()
     state.IdleMode:options('Normal')
 
    	send_command('bind f2 input /ja "Avatar\'s Favor"')
-	send_command('bind f3')
+	send_command('bind f3 gs c siphon')
 	send_command('bind f4 ws Myrkr')
 	send_command('bind f5 input //buff')
 	send_command('bind f6')
