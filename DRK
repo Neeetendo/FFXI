@@ -67,8 +67,9 @@ CustomMeleeGroups AM3 will activate when Aftermath lvl 3 is up, and AM will acti
 --]]
 
 function get_sets()
-    mote_include_version = 2
-    include('Mote-Include.lua')
+	mote_include_version = 2
+	include('Mote-Include.lua')
+	send_command('gs enable all')
 end
 
 
@@ -113,44 +114,32 @@ function user_setup()
     war_sj = player.sub_job == 'WAR' or false
 
     -- Additional local binds
-    send_command('bind != gs c toggle CapacityMode')
-    send_command('bind @f9 gs c toggle SouleaterMode')
-    --send_command('bind ^` gs c toggle LastResortMode')
+	send_command('bind f2 gs c toggle CapacityMode')
+	send_command('bind f3')
+	send_command('bind f4')
+	send_command('bind f5')
+	send_command('bind f6')
+	send_command('bind f7')
+	send_command('bind f8')
+	send_command('bind home gs c warpring')
 	
-	send_command('bind ^f1 ja LastResort') --MX1--
-	send_command('bind ^f2 ja Hasso') --MX2--
-	send_command('bind ^f3 ja ScarletDelirium') --MX3--
-	send_command('bind ^f4 ja Souleater') --MX4--
-	send_command('bind ^f5') --MX5--
-	send_command('bind ^f6 ws Resolution') --MX6--
-	send_command('bind ^f7 ws Torcleaver') --MX7--
-	send_command('bind ^f8 ws Scourge') --MX8--
-	send_command('bind ^f9') --MX9--
-	send_command('bind ^f10') --MX10--
+    --send_command('bind f7 gs c toggle CapacityMode')
+    --send_command('bind f7 gs c toggle SouleaterMode')
+    --send_command('bind f7 gs c toggle LastResortMode')
 	
-	send_command('bind !f1 ma EndarkII') --M1--
-	send_command('bind !f2 ma DreadSpikes') --M2--
-	send_command('bind !f3') --M3--
-	send_command('bind ^!f4') --M4--
-	send_command('bind !f5') --M5--
-	send_command('bind !f6') --M6--
-	send_command('bind !f7') --M7--
-	send_command('bind !f8') --M8--
-	send_command('bind !f9') --M9--
-	send_command('bind !f10') --M10--
-	send_command('bind !f11 input /kingofhearts;wait 5;/arciela;wait 5;/selh\'teus;wait 5;/qultada;wait 5;/apururu(uc)') --M11---
-	--send_command('bind !f11 input /kingofhearts;wait 5;/zeidII;wait 5;/qultada;wait 5;/ulmia;wait 5;/apururu(uc)') --M11--
-	send_command('bind !f12 gs c warpring') --M12--
-
     select_default_macro_book()
 end
 
 function file_unload()
-    send_command('unbind ^`')
-    send_command('unbind !=')
-    send_command('unbind ^[')
-    send_command('unbind ![')
-    send_command('unbind @f9')
+	send_command('unbind f1')
+	send_command('unbind f2')
+	send_command('unbind f3')
+	send_command('unbind f4')
+	send_command('unbind f5')
+	send_command('unbind f6')
+	send_command('unbind f7')
+	send_command('unbind f8')
+	send_command('unbind home')
 end
 
 function init_gear_sets()
@@ -922,7 +911,7 @@ function job_self_command(cmdParams, eventArgs)
 		send_command('gs disable left_ring;wait 10;input /item "Warp Ring" <me>;wait 1;input /item "Warp Ring" <me>;wait 1;input /item "Warp Ring" <me>;wait 10;gs enable left_ring')
 	elseif command == 'demring' then
 		equip({left_ring="Dimensional Ring (Dem)"})
-		send_command('gs disable left_ring;wait 10;input /item "Dimensional Ring (Dem)" <me>;wait 1;input /item "Dimensional Ring (Dem)" <me>;wait 1;input /item "Dimensional Ring (Dem)" <me>;wait 10;gs enable left_ring')
+		send_command('gs disable left_ring;wait 10;input /item "Dimensional Ring (Dem)" <me>;wait 1;input /item "Dimensional Ring (Dem)" <me>;wait 10;gs enable left_ring')
 	end
 	--if command=='mainweapon' then
 	--	enable('main','sub')
