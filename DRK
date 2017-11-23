@@ -852,10 +852,9 @@ end
 function display_current_job_state(eventArgs)
     local msg = 'DRK暗'
 
-	msg = msg .. ': '
+	msg = msg .. ' :: '
 	msg = msg .. '[Offense: '..state.OffenseMode.current..']'
 	msg = msg .. ' '
-
     if state.SouleaterMode.value then
         msg = msg .. '[Souleater: Auto Cancel]'
     end
@@ -864,13 +863,9 @@ function display_current_job_state(eventArgs)
         msg = msg .. '[LR Defense]'
     end
 	msg = msg .. ' '
-    if state.CombatForm.current == 'Haste' then
-        msg = msg .. 'High Haste'
-    end
-	msg = msg .. ' '
     if state.DefenseMode.value ~= 'None' then
         local defMode = state[state.DefenseMode.value ..'DefenseMode'].current
-		msg = msg .. '['..state.DefenseMode.value .. ']'
+        msg = msg .. '[Defense: '..state.DefenseMode.value..']'
     end
 	
     add_to_chat(060, msg)
