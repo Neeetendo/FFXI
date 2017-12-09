@@ -2,7 +2,6 @@ hastetype=1
 hastesambatype=0
 enableautora = true
 autora = false
-default_ws = "Jishnu's Radiance"
 default_ws = "Last Stand"
 customincludes=false
 --print(world.weather_element)
@@ -19,9 +18,9 @@ function job_setup()
 	state.UseAltqd = M(false, 'Use Secondary Shot')
 	state.Currentqd = M{['description']='Current Quick Draw', 'Main', 'Alt'}
 	
-	-- Whether to use Luzaf's Ring
+	-- Whether to use Luzaf's Ring [//gs c toggle LuzafRing]
 	state.LuzafRing = M(false, "Luzaf's Ring")
-	-- Whether to use Chasseur's Bottes +1
+	-- Whether to use Chasseur's Bottes +1 [//gs c toggle Bootes]
 	state.Bottes = M(false, "Chasseur's Bottes +1")
 	-- Whether a warning has been given for low ammo
 	state.warned = M(false)
@@ -154,7 +153,7 @@ function init_gear_sets()
 	---------------------------------------- Precast Sets ------------------------------------------
 	------------------------------------------------------------------------------------------------
 
-	sets.precast.JA['Snake Eye'] = {legs="Lanun Culottes"}
+	sets.precast.JA['Snake Eye'] = {legs="Lanun Culottes +1"}
 	sets.precast.JA['Wild Card'] = {feet="Lanun Bottes +1"}
 	sets.precast.JA['Random Deal'] = {body="Lanun Frac +1"}
 	sets.precast.CorsairRoll = {
@@ -165,7 +164,6 @@ function init_gear_sets()
 		body="Emet Harness +1",
         hands="Chasseur's Gants +1",
 --		left_ring="Barataria Ring",
-		right_ring="Defending Ring",
         back="Camulus's Mantle",
 		waist="Flume Belt +1",
 		legs="Desultor Tassets",
@@ -544,7 +542,7 @@ function job_precast(spell, action, spellMap, eventArgs)
 	elseif spell.type == 'CorsairShot' and state.CastingMode.value == 'Resistant' then
 		classes.CustomClass = 'Acc'
 	end
-	if (spell.type == 'QuickDraw') and state.Bottes.value then
+	if (spell.type == 'CorsairShot' or spell.english == "Quick Draw") and state.Bottes.value then
 		equip(sets.precast.Bottes)
 	end
 	if spell.english == 'Fold' and buffactive['Bust'] == 2 then
