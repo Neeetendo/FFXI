@@ -69,8 +69,8 @@ function job_setup()
 				'Geist Wall','Hecatomb Wave','Infrasonics','Jettatura','Light of Penance',
 				'Lowing','Mind Blast','Mortal Ray','MP Drainkiss','Osmosis','Reaving Wind',
 				'Sandspin','Sandspray','Sheep Song', 'Silent Storm','Soporific','Sound Blast',
-				'Stinking Gas', 'Sub-zero Smash','Venom Shell','Voracious Trunk','Yawn'}
-    blue_magic_maps.MagicDark		= S{'Blood Saber','Palling Salvo','Tenebral Crush','Osmosis','Atra. Libations'}
+				'Stinking Gas','Sub-zero Smash','Venom Shell','Voracious Trunk','Yawn'}
+    blue_magic_maps.MagicDark		= S{'Blood Saber','Palling Salvo','Tenebral Crush','Osmosis','Atra. Libations','Dark Orb'}
 	blue_magic_maps.MagicLight		= S{'Blinding Fulgor','Diffusion Ray','Rail Cannon','Retinal Glare','Magic Hammer'}
 	blue_magic_maps.MagicEarth		= S{'Entomb'}
     blue_magic_maps.Breath			= S{
@@ -110,9 +110,9 @@ function user_setup()
 	send_command('bind f2 ws Savage Blade')
 	send_command('bind f3 ws Chant du Cygne')
 	send_command('bind f4 ws Requiescat')
-	send_command('bind f5 gs c mainweapon')
-	send_command('bind f6 ma Erratic Flutter')
-	send_command('bind f7 ma Nat. Meditation')
+	send_command('bind f5 ws Expiacion')
+	send_command('bind f6 ws SanguineBlade')
+	send_command('bind f7 gs c mainweapon')
 	send_command('bind home gs c demring')
 	
 	send_command('bind !numpad1 input /ma "Magic Fruit" <p0>')
@@ -150,7 +150,7 @@ function init_gear_sets()
 	------------------------------------------------------------------------------------------------
 	
     Rosmerta		= {}
-    Rosmerta.TP		= { name="Rosmerta's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Dual Wield"+10',}}
+    Rosmerta.TP		= { name="Rosmerta's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','"Dbl.Atk."+10','Phys. dmg. taken-10%',}}
     Rosmerta.Crit	= { name="Rosmerta's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Crit.hit rate+10',}}
 	Rosmerta.STRWS	= { name="Rosmerta's Cape", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}}
 	Rosmerta.MNDWS	= { name="Rosmerta's Cape", augments={'MND+20','Accuracy+20 Attack+20','"Dbl.Atk."+10',}}
@@ -164,19 +164,19 @@ function init_gear_sets()
     sets.TreasureHunter				= {head=HerculeanHead.TH,waist="Chaac Belt"}
 	sets.mainweapon					= {}
 	sets.mainweapon.Sequence		= {
-			main="Sequence",
-			sub={ name="Colada", augments={'"Dbl.Atk."+2','DEX+13','Accuracy+19','DMG:+2',}}}
+										main="Sequence",
+										sub="Colada"}
 	sets.mainweapon.Club			= {
-			main="Nibiru Cudgel",
-			sub="Nibiru Cudgel"}
+										main="Nibiru Cudgel",	
+										sub="Nibiru Cudgel"}
 
 	------------------------------------------------------------------------------------------------
 	---------------------------------- Job Abilities Sets ------------------------------------------
 	------------------------------------------------------------------------------------------------
 	
     sets.precast.JA['Azure Lore']	= {hands="Luhlaza Bazubands"}
-    sets.buff['Burst Affinity']		= {feet="Hashishin Basmak +1",}
-    sets.buff['Chain Affinity']		= {head="Hashishin Kavuk",feet="Assimilator's Charuqs +2"}
+    sets.buff['Burst Affinity']		= {legs="Assimilator's Shalwar +1",feet="Hashishin Basmak +1",}
+    sets.buff['Chain Affinity']		= {head="Hashishin Kavuk +1",feet="Assimilator's Charuqs +2"}
     sets.buff.Convergence			= {head="Mirage Keffiyeh +2"}
     sets.buff.Diffusion				= {feet="Luhlaza Charuqs +1"}
     sets.buff.Efflux				= {legs="Hashishin Tayt +1"}
@@ -228,7 +228,7 @@ function init_gear_sets()
 		neck="Baetyl Pendant", --4
 		left_ear="Loquacious Earring", --2
 		right_ear="Etiolation Earring", --1
-		body="Dread Jupon", --7
+		body="Taeon Tabard", --7
 		hands="Leyline Gloves", --8
 		left_ring="Rahab Ring", --2
 --		left_ring="Weatherspoon ring", --5
@@ -246,10 +246,10 @@ function init_gear_sets()
     sets.midcast.FastRecast = {
 		ammo="Impatiens",
 		head="Carmine Mask +1", --14
-		neck="Baetyl Pendant", --4
+		neck="Baetyl Pendant", --4 	
 		left_ear="Loquacious Earring", --2
 		right_ear="Etiolation Earring", --1
-		body="Dread Jupon", --7
+		body="Taeon Tabard", --7
 		hands="Rawhide Gloves",
 		left_ring="Evanescence Ring",
 		right_ring="Kishar Ring", --2
@@ -320,18 +320,18 @@ function init_gear_sets()
     sets.midcast['Blue Magic'].MagicalDex = set_combine(sets.midcast['Blue Magic'].Magical,{})
     sets.midcast['Blue Magic'].MagicAccuracy = {
 		ammo="Pemphredo Tathlum",
-		head="Jhakri Coronal +2",
+		head="Carmine Mask +1",
 		neck="Incanter's Torque",
 		left_ear="Dignitary's Earring",
-		right_ear="Etiolation Earring",
+		right_ear="Gwati Earring",
 		body="Jhakri Robe +2",
 		hands="Jhakri Cuffs +2",
 		left_ring="Stikini Ring",
-		right_ring="Kishar Ring",
+		right_ring="Weatherspoon Ring",
         back=Rosmerta.Nuke,
-		waist="Luminary Sash",
+		waist="Eschan Stone",
 		legs="Ayanmo Cosciales +2",
-		feet="Ayanmo Gambieras +2"}
+		feet="Jhakri Pigaches +2"}
 	sets.midcast['Blue Magic'].MagicDark = set_combine(sets.midcast['Blue Magic'].Magical,{head="Pixie Hairpin +1",right_ring="Archon Ring"})
 	sets.midcast['Blue Magic'].MagicLight = set_combine(sets.midcast['Blue Magic'].Magical,{right_ring="Weatherspoon ring"})
 	sets.midcast['Blue Magic'].MagicEarth = set_combine(sets.midcast['Blue Magic'].Magical,{})
@@ -398,7 +398,7 @@ function init_gear_sets()
 
     sets.engaged = {
 		ammo="Ginsen",
-		head="Adhemar Bonnet",
+		head="Adhemar Bonnet +1",
 		neck="Ainia Collar",
 		left_ear="Eabani Earring",
 		right_ear="Suppanomimi",
@@ -425,7 +425,7 @@ function init_gear_sets()
 
     sets.engaged.MidHaste = {
 		ammo="Ginsen",
-		head="Adhemar Bonnet",
+		head="Adhemar Bonnet +1",
 		neck="Ainia Collar",
 		left_ear="Eabani Earring",
 		right_ear="Suppanomimi",
@@ -452,16 +452,16 @@ function init_gear_sets()
 
     sets.engaged.MaxHaste = {
 		ammo="Ginsen",
-		head="Adhemar Bonnet",
+		head="Adhemar Bonnet +1",
 		neck="Ainia Collar",
 		left_ear="Cessance Earring",
 		right_ear="Brutal Earring",
-		body=HerculeanBody.TA,
+		body="Adhemar Jacket +1",
 		hands="Adhemar Wristbands +1",
 		left_ring="Epona's Ring",
 		right_ring="Petrov Ring",
 		back=Rosmerta.TP,
-		waist="Windbuffet Belt +1",
+		waist="Reiki Yotai",
 		legs="Samnuha Tights",
 		feet=HerculeanFeet.TA}
 	sets.engaged.MidAcc.MaxHaste = set_combine(sets.engaged.MaxHaste , {
@@ -470,11 +470,8 @@ function init_gear_sets()
 		ammo="Falcon Eye",
 		head="Dampening Tam",
 		neck="Sanctity Necklace",
-		left_ear="Cessance Earring",
-		right_ear="Dignitary's Earring",
-		hands="Leyline Gloves",
-		right_ring="Ramuh Ring +1",
-		waist="Kentarch Belt +1"}) 
+		left_ear="Dignitary's Earring",
+		right_ring="Ramuh Ring +1",}) 
 
 	------------------------------------------------------------------------------------------------
 	------------------------------------ Weaponskill Sets ------------------------------------------
@@ -482,28 +479,14 @@ function init_gear_sets()
 
     sets.precast.WS = {neck="Fotia Gorget",waist="Fotia Belt",}
 	
---	sets.CDC = {
---		ammo="Jukukik Feather",
---		head="Adhemar Bonnet",
---		neck="Fotia Gorget",
---		left_ear="Brutal Earring",
---		right_ear="Moonshade Earring",
---		body="Abnoba Kaftan",
---		hands=AdhemarHands.A,
---		left_ring="Epona's Ring",
---		right_ring="Begrudging Ring",
---		back=Rosmerta.Crit,
---		waist="Fotia Belt",
---		legs="Samnuha Tights",
---		feet="Thereoid Greaves"}
 	sets.CDC = {
 		ammo="Jukukik Feather",
-		head="Adhemar Bonnet",
+		head="Adhemar Bonnet +1",
 		neck="Fotia Gorget",
 		left_ear="Brutal Earring",
 		right_ear="Moonshade Earring",
 		body="Abnoba Kaftan",
-		hands=AdhemarHands.A,
+		hands="Adhemar Wristbands +1",
 		left_ring="Epona's Ring",
 		right_ring="Begrudging Ring",
 		back=Rosmerta.Crit,
@@ -514,19 +497,19 @@ function init_gear_sets()
 	sets.precast.WS['Chant du Cygne'].Acc = set_combine(sets.CDC, {ammo="Falcon Eye",left_ear="Cessance Earring",left_ring="Ramuh Ring +1"})
 
 	sets.Requiescat = {
-		ammo="Hydrocera",
-		head="Carmine Mask +1",
+		ammo="Floestone",
+		head="Jhakri Coronal +2",
 		neck="Fotia Gorget",
-		left_ear="Telos Earring",
+		left_ear="Brutal Earring",
 		right_ear="Moonshade Earring",
-		body="Ayanmo Corazza +1",
-		hands=AdhemarHands.A,
+		body="Jhakri Robe +2",
+		hands="Jhakri Cuffs +2",
 		left_ring="Epona's Ring",
 		right_ring="Rufescent Ring",
 		back=Rosmerta.MNDWS,
 		waist="Fotia Belt",
 		legs="Carmine Cuisses +1",
-		feet="Carmine Greaves +1"}
+		feet="Jhakri Pigaches +2"}
     sets.precast.WS['Requiescat'] = set_combine(sets.precast.WS, sets.Requiescat)
 
 	sets.Savage = {
@@ -584,7 +567,7 @@ function init_gear_sets()
     sets.resting = {}
     sets.defense.PDT = {
 		ammo="Staunch Tathlum",
-		head="Ayanmo Zucchetto +1",
+		head="Ayanmo Zucchetto +2",
 		neck="Loricate Torque +1",
 		left_ear="Cessance Earring",
 		right_ear="Telos Earring",
