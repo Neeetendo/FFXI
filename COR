@@ -20,7 +20,7 @@ function job_setup()
 	
 	-- Whether to use Luzaf's Ring [//gs c toggle LuzafRing]
 	state.LuzafRing = M(false, "Luzaf's Ring")
-	-- Whether to use Chasseur's Bottes +1 [//gs c toggle Bootes]
+	-- Whether to use Chasseur's Bottes +1 [//gs c toggle Bottes]
 	state.Bottes = M(false, "Chasseur's Bottes +1")
 	-- Whether a warning has been given for low ammo
 	state.warned = M(false)
@@ -38,7 +38,7 @@ function user_setup()
 	state.flurrymode = M{['description'] = 'Flurry Mode'}
 	state.flurrymode:options('Flurry','FlurryII')
 	state.rangetype = M{['description'] = 'Ranged Type'}
-	state.rangetype:options('Compensator','Aeonic','Ataktos')
+	state.rangetype:options('Fomalhaut','Ataktos')
 	state.cpmode = M(false, 'CP Mode')
 	state.autows = M(false, 'AutoWS')
 	state.idlemode = M{['description']="Idle Mode",'Normal'}
@@ -116,8 +116,7 @@ function init_gear_sets()
 	sets.alt											= {}
 	sets.rangetype										= {}
 	sets.rangetype.None									= {}
-	sets.rangetype.Compensator							= {range="Compensator"}
-	sets.rangetype.Aeonic								= {range="Fomalhaut"}
+	sets.rangetype.Fomalhaut							= {range="Fomalhaut"}
 	sets.rangetype.Ataktos								= {range="Ataktos"}
 	sets.bullets										= {}
 	sets.bullets.Racc									= {}
@@ -131,6 +130,7 @@ function init_gear_sets()
 	sets.precast.JA['Random Deal']						= {body="Lanun Frac +3"}
 	sets.precast.CorsairRoll							= {
 															main		="Rostam",
+															range		="Compensator"
 															head		="Lanun Tricorne +3",
 															body		="Malignance Tabard",
 															hands		="Chasseur's Gants +1",
@@ -143,7 +143,7 @@ function init_gear_sets()
 															left_ring	="Luzaf's Ring",
 															right_ring	="Defending Ring",
 															back		=Camulus.Snapshot}
-	sets.precast.JA['Double-Up']						= sets.precast.CorsairRoll
+	sets.precast.JA['Double-Up']						= {left_ring="Luzaf's Ring"}
 	sets.precast.CorsairRoll["Caster's Roll"]			= set_combine(sets.precast.CorsairRoll, {legs="Chas. Culottes +1"})
 	sets.precast.CorsairRoll["Courser's Roll"]			= set_combine(sets.precast.CorsairRoll, {feet="Chass. Bottes +1"})
 	sets.precast.CorsairRoll["Blitzer's Roll"]			= set_combine(sets.precast.CorsairRoll, {head="Chass. Tricorne +1"})
@@ -796,7 +796,7 @@ function job_self_command(cmdParams, eventArgs)
 		enable('range','ammo')
 		rangeswap=1
 		send_command('gs c cycle rangetype')
-		if state.rangetype.value == "Aeonic" then
+		if state.rangetype.value == "Fomalhaut" then
 			default_ws = "Last Stand"
 			send_command('bind ^f6 input /ws "Last Stand" <t>')
 		elseif state.rangetype.value == "Bow" then
