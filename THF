@@ -26,7 +26,7 @@ function user_setup()
     state.HybridMode:options('Normal')
     state.RangedMode:options('Normal', 'Acc')
     state.WeaponskillMode:options('Normal', 'Acc')
-    state.IdleMode:options('Normal')
+    state.IdleMode:options('Normal', 'Regain')
     state.RestingMode:options('Normal')
     state.PhysicalDefenseMode:options('PDT')
     state.MagicalDefenseMode:options('MDT')
@@ -36,10 +36,9 @@ function user_setup()
 	send_command('bind f2 ws Rudra\'s Storm')
 	send_command('bind f3 ws Evisceration')
 	send_command('bind f4 ws Mandalic Stab')
---	send_command('bind f5 ws Exenterator')
---	send_command('bind f6 ws SharkBite')
---	send_command('bind f7 ws AeolianEdge')
---	send_command('bind home gs c demring')
+	send_command('bind f5 ws Exenterator')
+	send_command('bind f6 ws SharkBite')
+	send_command('bind f7 ws AeolianEdge')
 	send_command('bind ` input /tulfaire')
 
     select_default_macro_book()
@@ -55,7 +54,6 @@ function file_unload()
 	send_command('unbind f6')
 	send_command('unbind f7')
 	send_command('unbind f8')
-	send_command('unbind home')
 	send_command('unbind `')
 end
 
@@ -68,7 +66,7 @@ function init_gear_sets()
     Toutatis.TP									= { name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Phys. dmg. taken-10%',}}
     Toutatis.DEXWS								= { name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','Weapon skill damage +10%',}}
 	Toutatis.AGIWS								= { name="Toutatis's Cape", augments={'AGI+20','Accuracy+20 Attack+20','AGI+10','"Dbl.Atk."+10',}}
-	Toutatis.CritWS								= { name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Crit.hit rate+10',}}
+	Toutatis.Crit								= { name="Toutatis's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Crit.hit rate+10',}}
 	Toutatis.Magic								= { name="Toutatis's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','"Mag.Atk.Bns."+10',}}
 	Toutatis.FastCast							= {}
 
@@ -103,7 +101,7 @@ function init_gear_sets()
 --	sets.precast.JA['Trick Attack']				= sets.buff['Trick Attack']
 	sets.precast.JA['Mug']						= {
 													ammo		="C. Palug Stone",
-													head		="Mummu Bonnet +2",
+													head		="",
 													body		="Mummu Jacket +2",
 													hands		="Mummu Wrists +2",
 													legs		="Mummu Kecks +2",
@@ -125,20 +123,21 @@ function init_gear_sets()
 	------------------------------------------------------------------------------------------------
 
     sets.idle									= {
-													ammo		="Staunch Tathlum",
-													head		="Meghanada Visor +2",
-													body		="Meghanada Cuirie +2",
-													hands		="Meghanada Gloves +2",
-													legs		="Meghanada Chausses +2",
-													feet		="Jute Boots +1",
+													ammo		="Staunch Tathlum +1",
+													head		="Turms Cap +1",
+													body		="Turms Harness +1",
+													hands		="Turms Mittens +1",
+													legs		="Turms Subligar +1",
+													feet		="Turms Leggings +1",
 													neck		="Bathy Choker +1",
 													waist		="Flume Belt +1",
 													left_ear	="Odnowa Earring +1",
 													right_ear	="Infused Earring",
-													left_ring	="Sheltered Ring",
-													right_ring	="Paguroidea Ring",
+													left_ring	="Paguroidea Ring",
+													right_ring	="Chirich Ring +1",
 													back		="Reiki Cloak"}	
 	sets.idle.Town								= set_combine(sets.idle, {feet="Jute Boots +1"})
+	sets.idle.Regain							= set_combine(sets.idle, {head="Turms Cap +1",left_ring="Roller's Ring"})
 	sets.idle.Regen								= sets.idle
 	sets.idle.Weak								= sets.idle
 
@@ -148,7 +147,7 @@ function init_gear_sets()
 	
     sets.precast.FC								= {
 													ammo		="Sapience Orb", --2
-													head		=HerculeanHead.FC, --12
+													head		=HerculeanHead.FC, --14
 													body		="Taeon Tabard", --9
 													hands		="Leyline Gloves", --8
 													legs		=HerculeanLegs.FC, --
@@ -157,7 +156,7 @@ function init_gear_sets()
 													waist		="Kasiri Belt",
 													left_ear	="Loquacious Earring", --2
 													right_ear	="Etiolation Earring", --2
-													left_ring	="Rahab Ring", --2
+													left_ring	="Weather. Ring", --5
 													right_ring	="Evanescence Ring",
 													back		=Toutatis.FastCast}
     sets.precast.FC.Utsusemi					= set_combine(sets.precast.FC, {neck="Magoraga Beads"})
@@ -186,12 +185,12 @@ function init_gear_sets()
 													hands		="Floral Gauntlets",
 													legs		="Pillager's Culottes +3",
 													feet		="Taeon Boots",
-													neck		="Assassin's Gorget +2",
+													neck		="Asn. Gorget +2",
 													waist		="Reiki Yotai",
 													left_ear	="Eabani Earring",
 													right_ear	="Suppanomimi",
 													left_ring	="Gere Ring",
-													right_ring	="Chirich Ring +1",
+													right_ring	="Hetairoi Ring",
 													back		=Toutatis.TP}
 	sets.engaged.Acc							= set_combine(sets.engaged, {})
 	sets.engaged.AccExtreme						= set_combine(sets.engaged.Acc, {})
@@ -201,135 +200,124 @@ function init_gear_sets()
 													hands		="Adhemar Wristbands +1",
 													left_ear	="Sherida Earring",})
 	sets.engaged.Acc.MidHaste					= set_combine(sets.engaged.MidHaste, {
+													body		="Plunderer's Vest +3",})
+	sets.engaged.AccExtreme.MidHaste			= set_combine(sets.engaged.Acc.MidHaste, {
 													ammo		="Yamarang",
-													body		="Pillager's Vest +3",})
-	sets.engaged.AccExtreme.MidHaste			= set_combine(sets.engaged.Acc.MidHaste, {})
+													head		="Malignance Chapeau",
+													body		="Malignance Tabard",
+													hands		="Malignance Gloves",
+													legs		="Malignance Tights",
+													left_ear	="Odnowa Earring +1",
+													right_ring	="Moonlight Ring"})
 	
 	sets.engaged.MaxHaste						= set_combine(sets.engaged.MidHaste, {
 													feet		="Plunderer's Poulaines +3",
 													right_ear	="Dedition Earring",
 													waist		="Windbuffet Belt +1",})
 	sets.engaged.Acc.MaxHaste					= set_combine(sets.engaged.MaxHaste, {
-													ammo		="Yamarang",
-													body		="Pillager's Vest +3",
-													waist		="Reiki Yotai",})
+													body		="Plunderer's Vest +3",
+													waist		="Reiki Yotai"})
 	sets.engaged.AccExtreme.MaxHaste			= set_combine(sets.engaged.Acc.MaxHaste, {
-													feet		="Pillager's Poulaines +3",
-													right_ear	="Mache Earring +1",
-													left_ring	="Regal Ring",})
+													ammo		="Yamarang",
+													head		="Malignance Chapeau",
+													body		="Malignance Tabard",
+													hands		="Malignance Gloves",
+													legs		="Malignance Tights",
+													feet		="Malignance Boots",
+													left_ear	="Odnowa Earring +1",
+													right_ring	="Moonlight Ring"})
+	sets.engaged.Hybrid							= {}
 
 	------------------------------------------------------------------------------------------------
 	------------------------------------ Weaponskill Sets ------------------------------------------
 	------------------------------------------------------------------------------------------------
 	
+	-- Dagger
     sets.precast.WS								= {
-													ammo="Cath Palug Stone",
-													head="Pillager's Bonnet +3",
-													neck="Assassin's Gorget +2",
-													left_ear="Moonshade Earring",
-													right_ear="Ishvara Earring",
-													body=HerculeanBody.WS,
-													hands="Meghanada Gloves +2",
-													left_ring="Regal Ring",
-													right_ring="Ilabrat Ring",
-													back=Toutatis.DEXWS,
-													waist="Grunfeld Rope",
-													legs="Plunderer's Culottes +3",
-													feet=HerculeanFeet.WS}
+													ammo		="Cath Palug Stone",
+													head		="Pillager's Bonnet +3",
+													body		=HerculeanBody.WS,
+													hands		="Meghanada Gloves +2",
+													legs		="Plunderer's Culottes +3",
+													feet		=HerculeanFeet.WS,
+													neck		="Asn. Gorget +2",
+													waist		="Grunfeld Rope",
+													left_ear	="Moonshade Earring",
+													right_ear	="Ishvara Earring",
+													left_ring	="Ilabrat Ring",
+													right_ring	="Regal Ring",
+													back		=Toutatis.DEXWS,}
     sets.precast.WS.Acc							= set_combine(sets.precast.WS, {})
 	
     sets.precast.WS['Rudra\'s Storm']			= set_combine(sets.precast.WS)
-    sets.precast.WS['Rudra\'s Storm'].Mid		= set_combine(sets.precast.WS)
     sets.precast.WS['Rudra\'s Storm'].Acc		= set_combine(sets.precast.WS)
-    sets.precast.WS['Rudra\'s Storm'].SA		= set_combine(sets.precast.WS, {ammo="Yetshila +1",body="Pillager's Vest +3"})
-    sets.precast.WS['Rudra\'s Storm'].TA		= set_combine(sets.precast.WS, {ammo="Yetshila +1",body="Pillager's Vest +3"})
-    sets.precast.WS['Rudra\'s Storm'].SATA		= set_combine(sets.precast.WS, {ammo="Yetshila +1",body="Pillager's Vest +3"})
+    sets.precast.WS['Rudra\'s Storm'].SA		= set_combine(sets.precast.WS, {ammo="Yetshila +1",body="Plunderer's Vest +3"})
+    sets.precast.WS['Rudra\'s Storm'].TA		= set_combine(sets.precast.WS, {ammo="Yetshila +1",body="Plunderer's Vest +3"})
+    sets.precast.WS['Rudra\'s Storm'].SATA		= set_combine(sets.precast.WS, {ammo="Yetshila +1",body="Plunderer's Vest +3"})
     sets.precast.WS['Shark Bite']				= set_combine(sets.precast.WS)
-    sets.precast.WS['Shark Bite'].Mid			= set_combine(sets.precast.WS)
     sets.precast.WS['Shark Bite'].Acc			= set_combine(sets.precast.WS)
     sets.precast.WS['Shark Bite'].SA			= set_combine(sets.precast.WS, {ammo="Yetshila +1"})
     sets.precast.WS['Shark Bite'].TA			= set_combine(sets.precast.WS, {ammo="Yetshila +1"})
     sets.precast.WS['Shark Bite'].SATA			= set_combine(sets.precast.WS, {ammo="Yetshila +1"})
     sets.precast.WS['Mandalic Stab']			= set_combine(sets.precast.WS)
-    sets.precast.WS['Mandalic Stab'].Mid		= set_combine(sets.precast.WS)
     sets.precast.WS['Mandalic Stab'].Acc		= set_combine(sets.precast.WS)
     sets.precast.WS['Mandalic Stab'].SA			= set_combine(sets.precast.WS, {ammo="Yetshila +1"})
     sets.precast.WS['Mandalic Stab'].TA			= set_combine(sets.precast.WS, {ammo="Yetshila +1"})
     sets.precast.WS['Mandalic Stab'].SATA		= set_combine(sets.precast.WS, {ammo="Yetshila +1"})
-		
-	sets.Evisceration							= {
-													ammo="Yetshila +1",
-													head="Adhemar Bonnet +1",
-													neck="Fotia Gorget",
-													left_ear="Sherida Earring",
-													right_ear="Odr Earring",
-													body="Plunderer's Vest +3",
-													hands="Mummu Wrists +2",
-													left_ring="Mummu Ring",
-													right_ring="Ilabrat Ring",
-													back=Toutatis.CritWS,
-													waist="Fotia Belt",
-													legs="Pillager's Culottes +3",
-													feet="Plunderer's Poulaines +3"}
-    sets.precast.WS['Evisceration']				= set_combine(sets.Evisceration)
-    sets.precast.WS['Evisceration'].Acc			= set_combine(sets.Evisceration, {feet="Mummu Gamashes +2"})
-    sets.precast.WS['Evisceration'].SA			= set_combine(sets.Evisceration)
-    sets.precast.WS['Evisceration'].TA			= set_combine(sets.Evisceration)
-    sets.precast.WS['Evisceration'].SATA		= set_combine(sets.Evisceration)
-	
-	sets.Exenterator							= {
-													ammo="Seething Bomblet +1",
-													head="Plunderer's Bonnet +3",
-													body="Plunderer's Vest +3",
-													hands="Meghanada Gloves +2",
-													legs="Plunderer's Culottes +2",
-													feet="Plunderer's Poulaines +3",
-													neck="Fotia Gorget",
-													waist="Fotia Belt",
-													left_ear="Brutal Earring",
-													right_ear="Telos Earring",
-													left_ring="Regal Ring",
-													right_ring="Ilabrat Ring",
-													back=Toutatis.AGIWS}
-    sets.precast.WS['Exenterator']				= set_combine(sets.Exenterator)
-    sets.precast.WS['Exenterator'].Mid			= set_combine(sets.Exenterator)
-    sets.precast.WS['Exenterator'].Acc			= set_combine(sets.Exenterator)
-    sets.precast.WS['Exenterator'].SA			= set_combine(sets.Exenterator)
-    sets.precast.WS['Exenterator'].TA			= set_combine(sets.Exenterator)
-    sets.precast.WS['Exenterator'].SATA			= set_combine(sets.Exenterator)
-	
-	sets.Savage									= {
-													ammo="Seething Bomblet +1",
-													head="Pillager's Bonnet +3",
-													neck="Caro Necklace",
-													left_ear="Ishvara Earring",
-													right_ear="Moonshade Earring",
-													body=HerculeanBody.WS,
-													hands="Meghanada Gloves +2",
-													left_ring="Regal Ring",
-													right_ring="Ifrit Ring +1",
-													back=Toutatis.DEXWS,
-													waist="Sailfi Belt +1",
-													legs="Plunderer's Culottes +2",
-													feet=HerculeanFeet.WS}
-    sets.precast.WS['Savage Blade']				= sets.Savage
-    sets.precast.WS['Savage Blade'].Acc			= set_combine(sets.Savage, {})
-	
+    sets.precast.WS['Evisceration']				= set_combine(sets.precast.WS, {
+													ammo		="Yetshila +1",
+													head		="Adhemar Bonnet +1",
+													body		="Plunderer's Vest +3",
+													hands		="Mummu Wrists +2",
+													legs		="Pill. Culottes +3",
+													feet		="Adhe. Gamashes +1",
+													neck		="Fotia Gorget",
+													waist		="Fotia Belt",
+													left_ear	="Sherida Earring",
+													right_ear	="Odr Earring",
+													right_ring	="Begrudging Ring",
+													back		=Toutatis.Crit})
+    sets.precast.WS['Evisceration'].Acc			= set_combine(sets.precast.WS['Evisceration'])
+    sets.precast.WS['Evisceration'].SA			= set_combine(sets.precast.WS['Evisceration'])
+    sets.precast.WS['Evisceration'].TA			= set_combine(sets.precast.WS['Evisceration'])
+    sets.precast.WS['Evisceration'].SATA		= set_combine(sets.precast.WS['Evisceration'])
+    sets.precast.WS['Exenterator']				= set_combine(sets.precast.WS, {
+													ammo		="Seething Bomblet +1",
+													head		="Plunderer's Bonnet +3",
+													body		="Plunderer's Vest +3",
+													hands		="Mummu Wrists +2",
+													legs		="Plunderer's Culottes +2",
+													feet		="Plunderer's Poulaines +3",
+													neck		="Fotia Gorget",
+													waist		="Fotia Belt",
+													left_ear	="Brutal Earring",
+													right_ear	="Telos Earring",
+													back		=Toutatis.AGIWS})
+    sets.precast.WS['Exenterator'].Acc			= set_combine(sets.precast.WS['Exenterator'])
+    sets.precast.WS['Exenterator'].SA			= set_combine(sets.precast.WS['Exenterator'])
+    sets.precast.WS['Exenterator'].TA			= set_combine(sets.precast.WS['Exenterator'])
+    sets.precast.WS['Exenterator'].SATA			= set_combine(sets.precast.WS['Exenterator'])
 	sets.precast.WS['Aeolian Edge']				= {
-													ammo="Seeth. Bomblet +1",
-													head=HerculeanHead.MAB,
-													body=HerculeanBody.MAB,
-													hands="Leyline Gloves",
-													legs="Plunderer's Culottes +3",
-													feet=HerculeanFeet.MAB,
-													neck="Baetyl Pendant",
-													waist="Eschan Stone",
-													left_ear="Friomisi Earring",
-													right_ear="Moonshade Earring",
-													left_ring="Dingir Ring",
-													right_ring="Shiva Ring +1",
-													back=Toutatis.DEXWS}
+													ammo		="Seeth. Bomblet +1",
+													head		=HerculeanHead.WS,
+													body		=HerculeanBody.MAB,
+													hands		=HerculeanHands.WS,
+													legs		=HerculeanLegs.WS,
+													feet		=HerculeanFeet.MAB,
+													neck		="Baetyl Pendant",
+													waist		="Eschan Stone",
+													left_ear	="Friomisi Earring",
+													right_ear	="Moonshade Earring",
+													left_ring	="Dingir Ring",
+													right_ring	="Shiva Ring +1",
+													back		=Toutatis.DEXWS}
 	
+	-- Sword
+    sets.precast.WS['Savage Blade']				= set_combine(sets.precast.WS, {
+													ammo		="Seething Bomblet +1",
+													waist		="Sailfi Belt +1",
+													left_ring	="Gere Ring"})
+    sets.precast.WS['Savage Blade'].Acc			= set_combine(sets.precast.WS['Savage Blade'], {})
 	------------------------------------------------------------------------------------------------
 	------------------------------------------- Misc Sets ------------------------------------------
 	------------------------------------------------------------------------------------------------
@@ -337,27 +325,32 @@ function init_gear_sets()
 	sets.resting								= {}
 	sets.defense.Evasion						= {}
 	sets.defense.PDT							= {
-													ammo="Staunch Tathlum",
-													head="Malignance Chapeau",
-													neck="Loricate Torque +1",
-													body="Malignance Tabard",
-													hands=HerculeanHands.DT,
-													right_ring="Defending Ring",
-													back="Shadow Mantle",
-													waist="Flume Belt +1",
-													legs="Meghanada Chausses +2",
-													feet="Malignance Boots"}
+													ammo		="Staunch Tathlum +1",
+													head		="Malignance Chapeau",
+													body		="Malignance Tabard",
+													hands		="Malignance Gloves",
+													legs		="Malignance Tights",
+													feet		="Malignance Boots",
+													left_ear	="Odnowa Earring +1",
+													right_ear	="Eabani Earring",
+													left_ring	="Gelatinous Ring +1",
+													right_ring	="Defending Ring",
+													neck		="Unmoving Collar +1",
+													waist		="Flume Belt +1",
+													back		="Shadow Mantle",}
 	sets.defense.MDT							= set_combine(sets.defense.PDT, {
-													ammo="Yamarang",
-													hands="Malignance Gloves",
-													legs="Malignance Tights",
-													feet="Ahosi Leggings",
-													neck="Warder's Charm +1",
-													left_ear="Odnowa Earring +1",
-													right_ear="Etiolation Earring",
-													left_ring="Shadow Ring",
-													back="Reiki Cloak"})
+													ammo		="Yamarang",
+													feet		="Ahosi Leggings",
+													neck		="Warder's Charm +1",
+													left_ring	="Shadow Ring",
+													back		="Reiki Cloak"})
 	sets.Kiting									= {feet="Jute Boots +1"}
+	sets.buff.Doom								= {neck="Nicander's Necklance",waist="Gishdubar Sash"}
+	sets.doom									= {
+													neck		="Nicander's Necklace",
+													waist		="Gishdubar Sash",
+													left_ring	={name="Eshmun's Ring", bag="wardrobe1"},
+													right_ring	={name="Eshmun's Ring", bag="wardrobe4"}}
 end
 
 function job_precast(spell, action, spellMap, eventArgs)
@@ -379,7 +372,7 @@ function job_post_precast(spell, action, spellMap, eventArgs)
 			equip(sets.CapacityMantle)
 		end
 	end
-    if spell.english == "Rudra\'s Storm" and player.tp > 1250 then
+    if spell.english == "Rudra\'s Storm" and player.tp > 2750 then
         equip({left_ear="Sherida Earring",})
     end
 end
@@ -451,18 +444,26 @@ function job_buff_change(buff, gain)
 			handle_equipping_gear(player.status)
 		end
 	end
+	if state.Buff[buff] ~= nil then
+		if not midaction() then
+
+			handle_equipping_gear(player.status)
+		end
+	end
+	if buff == "doom" then
+		if gain then		   
+			equip(sets.buff.Doom)
+			send_command('@input /p Doomed.')
+			disable('left_ring','right_ring','waist','neck')
+		else
+			enable('left_ring','right_ring','waist','neck')
+			handle_equipping_gear(player.status)
+		end
+	end
 end
 
 function job_self_command(cmdParams, eventArgs)
 	command = cmdParams[1]:lower()
-	if command == 'warpring' then
-		equip({left_ring="Warp Ring"})
-		send_command('gs disable left_ring;wait 10;input /item "Warp Ring" <me>;wait 1;input /item "Warp Ring" <me>;wait 1;input /item "Warp Ring" <me>;wait 10;gs enable left_ring')
-	end
-	if command == 'demring' then
-		equip({left_ring="Dimensional Ring (Dem)"})
-		send_command('gs disable left_ring;wait 10;input /item "Dimensional Ring (Dem)" <me>;wait 1;input /item "Dimensional Ring (Dem)" <me>;wait 10;gs enable left_ring')
-	end
 	command = cmdParams[1]:lower()
 	command2 = cmdParams[2]
 end
@@ -476,6 +477,8 @@ function display_current_job_state(eventArgs)
 	local msg = 'THFシ'
 
 	msg = msg .. ' :: '
+	msg = msg .. '[Idle: '..state.IdleMode.current.. ']'
+	msg = msg .. ' '
 	msg = msg .. '[Offense: '..state.OffenseMode.current..']'
 	msg = msg .. ' '
 	msg = msg .. '[WS: '..state.WeaponskillMode.current .. ']'
@@ -543,14 +546,6 @@ function check_range_lock()
 	else
 		enable('range', 'ammo')
 	end
-end
-
-function select_regen()
-    if world.time >= (17*60) or world.time <= (7*60) then
-        return sets.NightMovement
-    else
-        return sets.DayMovement
-    end
 end
 
 function select_default_macro_book()
