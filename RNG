@@ -11,7 +11,7 @@ function get_sets()
 	mote_include_version = 2
 	include('Mote-Include.lua')
 	include('organizer-lib')
-	send_command('lua u autora')
+	send_command('gs enable all')
 end
 
 function job_setup()
@@ -20,40 +20,59 @@ end
 function user_setup()
 	state.OffenseMode:options('Normal', 'Acc', 'AccExtreme')
 	state.RangedMode:options('Normal', 'Acc', 'AccExtreme')
-	state.hastemode = M{['description'] = 'Haste Mode'}
+	state.hastemode= M{['description'] = 'Haste Mode'}
 	state.hastemode:options('NoHaste','HasteI','HasteII','Capped')
-	state.flurrymode = M{['description'] = 'Flurry Mode'}
+	state.flurrymode= M{['description'] = 'Flurry Mode'}
 	state.flurrymode:options('Flurry','FlurryII')
-	state.rangetype = M{['description'] = 'Ranged Type'}
+	state.rangetype= M{['description'] = 'Ranged Type'}
 	state.rangetype:options('Fomalhaut','Annihilator','Accipiter','FailNot')
-	state.cpmode = M(false, 'CP Mode')
-	state.autows = M(false, 'AutoWS')
+	state.cpmode= M(false, 'CP Mode')
+--	state.autows= M(false, 'AutoWS')
 	state.IdleMode:options('Normal', 'DT')
-	state.idlemode = M{['description']="Idle Mode",'Normal','DT'}
+	state.idlemode= M{['description']="Idle Mode",'Normal','DT'}
     state.PhysicalDefenseMode:options('PDT','Evasion')
     state.MagicalDefenseMode:options('MDT')
-
 	state.Buff.Barrage = buffactive.Barrage or false
 	state.Buff.Camouflage = buffactive.Camouflage or false
 	state.Buff.Overkill = buffactive.Overkill or false
-	
     elemental_ws = S{'Aeolian Edge', 'Trueflight', 'Wildfire', 'Hot Shot', 'Shining Blade', 'Seraph Blade', 'Flaming Arrow', 'Flash Nova'}
 	
 	gear.RAbullet = "Chrono Bullet"
 	gear.WSbullet = "Chrono Bullet"
 	gear.MAbullet = "Orichalc. Bullet"
-	
+
+		---.Key Binds.---
 	send_command('bind f2 input /shoot <t>')
 	send_command('bind f3 ws LastStand')
-	send_command('bind f4 ws Wildfire')
-	send_command('bind f5 ws Coronach')
-	send_command('bind f6 ws SavageBlade')
-	send_command('bind f7 ws Evisceration')
+	send_command('bind f4 ws Trueflight')
+	send_command('bind f5 ws Wildfire')
+	send_command('bind f6 ws HotShot')
+	send_command('bind f7 ws SavageBlade')
+
+	-- CTRL
+	send_command('bind ^` input /ja "Sharpshot" <me>;wait 1;input /ja "Barrage" <me>;wait 1;input /ja "Camouflage" <me>')
 	send_command('bind ^z gs c cycle hastemode')
 	send_command('bind ^q gs c rangetype')
 	send_command('bind ^a gs c cycle flurrymode')
-
---	send_command('gs c hastetype')
+    send_command('bind ^1 input /ja "Velocity Shot" <me>')
+    send_command('bind ^2 input /ja "Hover Shot" <me>')
+    send_command('bind ^3 input /ja "Decoy Shot" <me>')
+--	send_command('bind ^4 input')
+    send_command('bind ^5 input /ja "Bounty Shot" <t>')
+    send_command('bind ^6 input /ja "Scavenge" <me>')
+    send_command('bind ^7 input /ja "Double Shot" <me>')
+	
+	-- ALT
+	send_command('bind !` input /ja "Provoke" <stnpc>')
+    send_command('bind !1 input /ja "Berserk" <me>')
+    send_command('bind !2 input /ja "Aggressor" <me>')
+    send_command('bind !3 input /ja "Warcry" <me>')
+    send_command('bind !4 input /ja "Defender" <me>')
+	
+	if player.sub_job == 'NIN' then
+		send_command('bind !1 input /nin "Utsusemi: Ni" <me>')
+		send_command('bind !2 input /nin "Utsusemi: Ichi" <me>')
+	end
 --	send_command('gs c hastesambatype')
 --	send_command('gs c cycle idlemode')
 --	send_command('gs c cycle meleetype')
@@ -64,12 +83,12 @@ function user_setup()
 --	send_command('gs c ranged')
 --	send_command('gs c accmode')
 --	send_command('gs c dw')
---	send_command('gs c hastemode')
 --	send_command('gs equip idle')
 --	send_command('gs c cycle runaway')
 --	send_command('gs c cycle runaway2')
 --	send_command('gs c magicevasion')
-
+		---.Key Binds End.---
+		
 	if(customincludes) then 
 		include('custom-aliases.lua')
 	end
@@ -107,11 +126,26 @@ function user_unload()
     send_command('unbind !8')
     send_command('unbind !9')
     send_command('unbind !0')
-	send_command('unbind ^z')
-	send_command('unbind ^x')
-	send_command('unbind ^c')
-	send_command('unbind ^q')
-	send_command('unbind ^a')
+	send_command('unbind ^numpad0')
+	send_command('unbind ^numpad1')
+	send_command('unbind ^numpad2')
+	send_command('unbind ^numpad3')
+	send_command('unbind ^numpad4')
+	send_command('unbind ^numpad5')
+	send_command('unbind ^numpad6')
+	send_command('unbind ^numpad7')
+	send_command('unbind ^numpad8')
+	send_command('unbind ^numpad9')
+	send_command('unbind !numpad0')
+	send_command('unbind !numpad1')
+	send_command('unbind !numpad2')
+	send_command('unbind !numpad3')
+	send_command('unbind !numpad4')
+	send_command('unbind !numpad5')
+	send_command('unbind !numpad6')
+	send_command('unbind !numpad7')
+	send_command('unbind !numpad8')
+	send_command('unbind !numpad9')
 end
 
 function init_gear_sets()
@@ -122,7 +156,7 @@ function init_gear_sets()
 
 	Belenus										= {}
 	Belenus.MeleeTP								= { name="Belenus's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dual Wield"+10','Phys. dmg. taken-10%',}}
-	Belenus.RangeTP								= { name="Belenus's Cape", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Rng.Acc.+10','"Store TP"+10',}}
+	Belenus.RangeTP								= { name="Belenus's Cape", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','AGI+10','"Store TP"+10',}}
 	Belenus.Snapshot							= { name="Belenus's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','"Snapshot"+10','Phys. dmg. taken-10%',}}
 	Belenus.DA									= { name="Belenus's Cape", augments={'STR+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10',}}
 	Belenus.Crit								= { name="Belenus's Cape", augments={'DEX+20','Rng.Acc.+20 Rng.Atk.+20','DEX+10','Crit.hit rate+10',}}
@@ -158,12 +192,11 @@ function init_gear_sets()
 	sets.bullets								= {	ammo		="Chrono Bullet"}
 	sets.bullets.Racc							= {	ammo		="Eradicating Bullet"}
 	sets.defdown								= {	ammo		="Abrasion Bolt"}
-	
-	sets.doom											= {
-															neck		="Nicander's Necklace",
-															waist		="Gishdubar Sash",
-															left_ring	={name="Eshmun's Ring", bag="wardrobe4"},
-															right_ring	={name="Eshmun's Ring", bag="wardrobe5"}}
+	sets.doom									= {
+													neck		="Nicander's Necklace",
+													waist		="Gishdubar Sash",
+													left_ring	={name="Eshmun's Ring", bag="wardrobe6"},
+													right_ring	={name="Eshmun's Ring", bag="wardrobe7"}}
 
 	------------------------------------------------------------------------------------------------
 	---------------------------------------- Precast Sets ------------------------------------------
@@ -180,15 +213,15 @@ function init_gear_sets()
 													head		="Adhemar Bonnet +1",
 													body		="Meghanada Cuirie +2",
 													hands		="Mummu Wrists +2",
-													legs		="Mummu Kecks +2",
-													feet		="Adhemar Gamashes +1",
+													legs		="Amini Bragues +2",
+													feet		="Arcadian Socks +3",
 													neck		="Scout's Gorget +2",
-													waist		="Yemaya Belt",
-													left_ear	="Odr Earring",
-													right_ear	="Sherida Earring",
-													left_ring	="Mummu Ring",
-													right_ring	="Begrudging Ring",
-													back		=Belenus.CritWS}
+													waist		="K. Kachina Belt +1",
+													left_ear	="Sherida Earring",
+													right_ear	="Odr Earring",
+													left_ring	="Ilabrat Ring",
+													right_ring	="Dingir Ring",
+													back		=Belenus.Crit}
 	sets.precast.Waltz							= {}
 	sets.precast.FC								= {
 													head		=HerculeanHead.FC,
@@ -285,7 +318,8 @@ function init_gear_sets()
 	sets.precast.WS.Acc							= set_combine(sets.precast.WS, {})
 	sets.precast.WS.AccExtreme					= set_combine(sets.precast.WS, {})
 
-	-- Marksmanship
+									------- Marksmanship -------
+	-- Last Stand (AGI 73%-85%
 	sets.precast.WS['Last Stand']				= set_combine(sets.precast.WS, {
 													head		="Orion Beret +3",
 													body		="Ikenga's Vest",
@@ -296,6 +330,7 @@ function init_gear_sets()
 													feet		="Amini Bottillons +2",})
 	sets.precast.WS['Last Stand'].AccExtreme	= set_combine(sets.precast.WS['Last Stand'].Acc, {})
 	
+	-- Coronach (AGI 40%/DEX 40%)
 	sets.precast.WS['Coronach']					= set_combine(sets.precast.WS, {
 													neck		="Scout's Gorget +2",
 													waist		="Sailfi Belt +1",
@@ -304,37 +339,41 @@ function init_gear_sets()
 	sets.precast.WS['Coronach'].Acc				= set_combine(sets.Coronach, {})
 	sets.precast.WS['Coronach'].AccExtreme		= set_combine(sets.precast.WS['Coronach'].Acc, {})
 
+	-- Trueflight (AGI 100%)
 	sets.precast.WS['Trueflight']				= set_combine(sets.precast.WS, {
 													head		=empty,
 													body		="Cohort Cloak +1",
-													neck		="Baetyl Pendant",
 													waist		="K. Kachina Belt +1",
 													left_ear	="Friomisi Earring",
 													right_ear	="Moonshade Earring",
 													left_ring	="Weather. Ring",
 													back		=Belenus.Magical})
+													
+	-- Wildfire (AGI 60%)
 	sets.precast.WS['Wildfire']					= set_combine(sets.precast.WS, {
 													head		=empty,
 													body		="Cohort Cloak +1",
-													neck		="Baetyl Pendant",
 													waist		="K. Kachina Belt +1",
 													left_ear	="Friomisi Earring",
 													right_ear	="Crematio Earring",
 													left_ring	="Fenrir Ring +1",
 													back		=Belenus.Magical})
+													
+	-- Hot Shot (70%)
 	sets.precast.WS['Hot Shot']					= set_combine(sets.precast.WS, {
 													head		=empty,
 													body		="Cohort Cloak +1",
-													neck		="Baetyl Pendant",
 													waist		="K. Kachina Belt +1",
 													left_ear	="Friomisi Earring",
 													right_ear	="Crematio Earring",
 													left_ring	="Fenrir Ring +1",
 													back		=Belenus.Magical})
 	
-	-- Archery
+									------- Archery -------
+	-- Jishnu's Radiance (DEX 80%)
 	sets.precast.WS['Jishnu\'s Radiance']		= set_combine(sets.precast.WS, {
 													body		="Meghanada Cuirie +2",
+													hands		="Amini Glove. +2",
 													feet		="Arcadian Socks +3",
 													left_ear	="Odr Earring",
 													back		=Belenus.CritWS})
@@ -342,14 +381,18 @@ function init_gear_sets()
 													body		="Orion Jerkin +3",
 													right_ear	="Telos Earring"})
 	
+	-- Namas Arrow (STR 40%/AGI 40%)
     sets.precast.WS['Namas Arrow']				= set_combine(sets.precast.WS, {
 													body		="Orion Jerkin +3",
+													hands		="Amini Glove. +2",
 													feet		="Malignance Boots",
 													right_ear	="Telos Earring",})
     sets.precast.WS['Namas Arrow'].Acc			= set_combine(sets.precast.WS['Namas Arrow'], {})
 	
+	-- Apex Arrow (AGI 73%-85%)
 	sets.precast.WS['Apex Arrow']				= set_combine(sets.precast.WS, {
 													body		="Arcadian Jerkin +3",
+													hands		="Amini Glove. +2",
 													feet		="Arcadian Socks +3",
 													neck		="Scout's Gorget +2",
 													waist		="Yemaya Belt",
@@ -357,9 +400,11 @@ function init_gear_sets()
 	sets.precast.WS['Apex Arrow'].Acc			= set_combine(sets.precast.WS['Apex Arrow'], {})
 	sets.precast.WS['Apex Arrow'].AccExtreme	= set_combine(sets.precast.WS['Apex Arrow'].Acc, {})
 
+	-- Flaming Arrow (AGI 50%/STR 20%)
 	sets.precast.WS['Flaming Arrow']			= set_combine(sets.precast.WS, {
 													head		=empty,
 													body		="Cohort Cloak +1",
+													hands		="Amini Glove. +2",
 													neck		="Baetyl Pendant",
 													waist		="K. Kachina Belt +1",
 													left_ear	="Friomisi Earring",
@@ -367,7 +412,8 @@ function init_gear_sets()
 													left_ring	="Fenrir Ring +1",
 													back		=Belenus.Magical})
 	
-	-- Dagger
+									 ------- Dagger -------
+	-- Evisceration (DEX 50%)
 	sets.precast.WS['Evisceration']				= set_combine(sets.precast.WS, {
 													head		="Adhemar Bonnet +1",
 													body		="Abnoba Kaftan",
@@ -383,14 +429,27 @@ function init_gear_sets()
 	sets.precast.WS['Evisceration'].Acc			= set_combine(sets.Evisceration, {})
 	sets.precast.WS['Evisceration'].AccExtreme	= set_combine(sets.precast.WS['Evisceration'].Acc, {})
 	
-	-- Sword
+	-- Aeolian Edge (DEX 40%/INT40%)
+	sets.precast.WS['Aeolian Edge']				= set_combine(sets.precast.WS, {
+													head		=empty,
+													body		="Cohort Cloak +1",
+													neck		="Baetyl Pendant",
+													waist		="Eschan Stone",
+													left_ear	="Friomisi Earring",
+													left_ring	="Fenrir Ring +1",
+													back		=Belenus.Magical})
+
+									 ------- Sword -------
+	-- Savage Blade (STR 50%/MND 50%)
 	sets.precast.WS['Savage Blade']				= set_combine(sets.precast.WS, {
 													neck		="Scout's Gorget +2",
 													waist		="Sailfi Belt +1",
 													left_ear	="Sherida Earring",
 													right_ring	="Shukuyu Ring",
-													neck		="Caro Necklace",
+													neck		="Rep. Plat. Medal",
 													back		=Belenus.STRWS})
+												
+	-- Shining Blade (STR 40%/MND 40%)
 	sets.precast.WS['Shining Blade']			= set_combine(sets.precast.WS, {
 													neck		="Baetyl Pendant",
 													waist		="Eschan Stone",
@@ -398,6 +457,8 @@ function init_gear_sets()
 													right_ear	="Moonshade Earring",
 													left_ring	="Weather. Ring",
 													back		=Belenus.Magical})
+												
+	-- Seraph Blade (STR 40%/MND 40%)
 	sets.precast.WS['Seraph Blade']				= set_combine(sets.precast.WS, {
 													neck		="Baetyl Pendant",
 													waist		="Eschan Stone",
@@ -406,7 +467,8 @@ function init_gear_sets()
 													left_ring	="Weather. Ring",
 													back		=Belenus.Magical})
 	
-	-- Axe
+									   ------- Axe -------
+	-- Decimation (STR 50%)
 	sets.precast.WS['Decimation']				= set_combine(sets.precast.WS, {
 													head		="Adhemar Bonnet +1",
 													body		="Adhemar Jacket +1",
@@ -419,6 +481,7 @@ function init_gear_sets()
 													right_ring	="Epona's Ring",
 													back		=Belenus.DA})
 													
+	-- Ruinator (STR 73%-85%)
 	sets.precast.WS['Ruinator']					= set_combine(sets.precast.WS, {
 													head		="Adhemar Bonnet +1",
 													body		="Adhemar Jacket +1",
@@ -430,7 +493,8 @@ function init_gear_sets()
 													right_ear	="Brutal Earring",
 													right_ring	="Epona's Ring",
 													back		=Belenus.DA})
-													
+		
+	-- Rampage (STR 50%)
 	sets.precast.WS['Rampage']					= set_combine(sets.precast.WS, {
 													head		="Adhemar Bonnet +1",
 													body		="Adhemar Jacket +1",
@@ -443,7 +507,8 @@ function init_gear_sets()
 													right_ring	="Epona's Ring",
 													back		=Belenus.DA})
 	
-	-- Club
+									  ------- Club -------
+	-- Flash Nova (STR 50%/MND 50%)
 	sets.precast.WS['Flash Nova']				= set_combine(sets.precast.WS, {
 													neck		="Baetyl Pendant",
 													waist		="Eschan Stone",
@@ -581,11 +646,11 @@ function init_gear_sets()
 	sets.engaged.kclub							= set_combine(sets.engaged, {})
 
 	sets.buff.Camouflage						= {	body		="Orion Jerkin +3"}
-	sets.Doubleshot								= set_combine(sets.midcast.RA.Acc, {
---													head		="Oshosi Mask +1",
+	sets.Doubleshot								= set_combine(sets.midcast.RA, {
+													head		="Oshosi Mask +1",
 													body		="Arcadian Jerkin +3",
---													hands		="Oshosi Gloves +1",
---													legs		="Oshosi Trousers +1",
+													hands		="Oshosi Gloves +1",
+													legs		="Oshosi Trousers +1",
 													feet		="Oshosi Leggings +1"})
 	sets.Overkill								= sets.midcast.RA.Acc
 	sets.Overkill.Preshot						= sets.precast.RA.Flurry2.Gastra
@@ -655,7 +720,7 @@ function job_post_precast(spell, action, spellMap, eventArgs)
 		equip({right_ear="Crematio Earring"})
 	end
 	if spell.english == "Savage Blade" and player.tp > 2700 then
-		equip({right_ear="Sherida Earring"})
+		equip({right_ear="Brutal Earring"})
 	end
 end
 
@@ -1007,7 +1072,7 @@ function select_default_macro_book()
 	if player.sub_job == 'WAR' then
 		set_macro_page(1, 10)
 	elseif player.sub_job == 'NIN' or player.sub_job == 'DNC' then
-		set_macro_page(1, 10)
+		set_macro_page(2, 10)
 	end
 end
 
