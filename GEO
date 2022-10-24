@@ -29,11 +29,10 @@ function user_setup()
     state.WeaponLock = M(false, 'Weapon Lock')
     state.MagicBurst = M(false, 'Magic Burst')
 
-    send_command('bind ^` input /ja "Full Circle" <me>')
-    send_command('bind ^1 input /ja "Blaze of Glory" <me>')
+    send_command('bind ^1 input /ja "Dematerialize" <me>')
     send_command('bind ^2 input /ja "Ecliptic Attrition" <me>')
-    send_command('bind ^3 input /ja "Dematerialize" <me>')
-    send_command('bind ^4 input /ja "Life Cycle" <me>')
+    send_command('bind ^3 input /ja "Life Cycle" <me>')
+    send_command('bind !` input /ja "Full Circle" <me>')
     send_command('bind !1 input /ja "Entrust" <me>')
     send_command('bind !2 input /ma "Indi-Fury" <stpc>')
     send_command('bind !3 input /ma "Indi-Frailty" <stpc>')
@@ -45,24 +44,26 @@ function user_setup()
     send_command('bind !9 input /ma "Indi-Attunement" <stpc>')
     send_command('bind !0 input /ma "Indi-Fade" <stpc>')
 	
-    send_command('bind !` gs c toggle MagicBurst')
+    send_command('bind ^` gs c toggle MagicBurst')
     send_command('bind f7 gs c cycleback Element')
     send_command('bind !f7 gs c cycle Element')
-    send_command('bind @c gs c toggle CP')
     send_command('bind @w gs c toggle WeaponLock')
+--	send_command('bind @c gs c toggle CP')
 
-    send_command('bind ^numpad1 input /ma "Geo-Frailty" <t>')
-    send_command('bind ^numpad2 input /ma "Geo-Malaise" <t>')
-    send_command('bind ^numpad3 input /ma "Geo-Fade" <t>')
-    send_command('bind ^numpad4 input /ma "Geo-Attunement" <t>')
-    send_command('bind ^numpad5 input /ma "Geo-Torpor" <t>')
-
-	send_command('bind !numpad0 input /ma "Cure IV" <p0>')
-	send_command('bind !numpad1 input /ma "Cure IV" <p1>')
-	send_command('bind !numpad2 input /ma "Cure IV" <p2>')
-	send_command('bind !numpad3 input /ma "Cure IV" <p3>')
-	send_command('bind !numpad4 input /ma "Cure IV" <p4>')
-	send_command('bind !numpad5 input /ma "Cure IV" <p5>')
+	send_command('bind ^numpad0 input /ma "Cure IV" <st>')
+	send_command('bind ^numpad1 input /ma "Cure III" <p0>')
+	send_command('bind ^numpad2 input /ma "Cure III" <p1>')
+	send_command('bind ^numpad3 input /ma "Cure III" <p2>')
+	send_command('bind ^numpad4 input /ma "Cure III" <p3>')
+	send_command('bind ^numpad5 input /ma "Cure III" <p4>')
+	send_command('bind ^numpad6 input /ma "Cure III" <p5>')
+	
+	send_command('bind !numpad0 input /ja "Blaze of Glory" <me>')
+    send_command('bind !numpad1 input /ma "Geo-Frailty" <t>')
+    send_command('bind !numpad2 input /ma "Geo-Malaise" <t>')
+    send_command('bind !numpad3 input /ma "Geo-Fade" <t>')
+    send_command('bind !numpad4 input /ma "Geo-Attunement" <t>')
+    send_command('bind !numpad5 input /ma "Geo-Torpor" <t>')
 
     select_default_macro_book()
     set_lockstyle()
@@ -116,7 +117,7 @@ function init_gear_sets()
     ------------------------------------------------------------------------------------------------
 
     sets.precast.JA.Bolster						= {	body		="Bagua Tunic +3"}
-    sets.precast.JA['Full Circle']				= {	head		="Azimuth Hood +1"}
+    sets.precast.JA['Full Circle']				= {	head		="Azimuth Hood +2"}
     sets.precast.JA['Life Cycle']				= {	body		="Geomancy Tunic +3"}
 	sets.precast.JA['Mending Halation']			= {	legs		="Bagua Pants +2"}
 	sets.precast.JA['Radial Arcana']			= {	feet		="Bagua Sandals +2"}
@@ -143,7 +144,23 @@ function init_gear_sets()
     sets.precast.FC.Curaga						= set_combine(sets.precast.FC, {})
     sets.precast.FC.Impact						= set_combine(sets.precast.FC, {head=empty, body="Twilight Cloak"})
 
-    sets.precast.WS								= {}
+	------------------------------------------------------------------------------------------------
+	------------------------------------ Weaponskill Sets ------------------------------------------
+	------------------------------------------------------------------------------------------------
+
+    sets.precast.WS								= { 
+													head		="Bagua Galero +3",
+													body		="Bagua Tunic +3",
+													hands		="Bagua Mitaines +3",
+													legs		="Bagua Pants +2",
+													feet		="Bagua Sandals +2",
+													neck		="Saevus Pendant +1",
+													waist		="Sacro Cord",
+													left_ear	="Malignance Earring",
+													right_ear	="Friomisi Earring",
+													left_ring	="Acumen Ring",
+													right_ring	="Metamor. Ring +1",
+													back		=Nantosuelta.Nuke}
     sets.precast.WS['Hexastrike']				= set_combine(sets.precast.WS, {})
     sets.precast.WS['Exudation']				= sets.precast.WS['Hexastrike']
 
@@ -156,11 +173,11 @@ function init_gear_sets()
 													main		="Solstice",
 													sub			="",
 													range		="Dunna",
-													head		="Vanya Hood",
-													body		="Bagua Tunic +3",
-													hands		="Geo. Mitaines +2",
-													legs		="Vanya Slops",
-													feet		="Vanya Clogs",
+													head		="Azimuth Hood +2",
+													body		="Azimuth Coat +2",
+													hands		="Azimuth Gloves +2",
+													legs		="Azimuth Tights +2",
+													feet		="Azimuth Gaiters +2",
 													neck		="Incanter's Torque",
 													waist		="Luminary Sash",
 													left_ear	="Malignance Earring",
@@ -171,9 +188,9 @@ function init_gear_sets()
     sets.midcast.Geomancy.Indi					= set_combine(sets.midcast.Geomancy, {
 													ranged		="Dunna",
 													legs		="Bagua Pants +2",
-													feet		="Azimuth Gaiters"})
+													feet		="Azimuth Gaiters +2"})
     sets.midcast.Cure							= {
-													main		={ name="Gada", augments={'Attack+9','MND+6','Mag. Acc.+25',}},
+													main		="Gada",
 													sub			="Sors Shield",
 													head		="Vanya Hood",
 													body		="Vanya Robe",
@@ -182,7 +199,7 @@ function init_gear_sets()
 													feet		="Vanya Clogs",
 													neck		="Incanter's Torque",
 													waist		="Bishop's Sash",
-													left_ear	="Malignance Earring",
+													left_ear	="Mendicant's Earring",
 													right_ear	="Meili Earring",
 													left_ring	="Sirona's Ring",
 													right_ring	="Lebeche Ring",
@@ -206,7 +223,7 @@ function init_gear_sets()
 													waist		="Embla Sash",
 													left_ear	="Mimir Earring",
 													right_ear	="Andoaa Earring",
---													left_ring	="Stikini Ring",
+													left_ring	="Stikini Ring",
 --													right_ring	="Stikini Ring",
 													back		="Perimede Cape",}	
     sets.midcast.EnhancingDuration				= set_combine(sets.midcast['Enhancing Magic'], {
@@ -246,7 +263,7 @@ function init_gear_sets()
 													main		="Gada",
 													sub			="Ammurapi Shield",
 													range		="Dunna",
-													head		="Geomancy Galero +2",
+													head		="Geomancy Galero +3",
 													body		="Geomancy Tunic +3",
 													hands		="Geomancy Mitaines +3",
 													legs		="Geomancy Pants +3",
@@ -267,18 +284,18 @@ function init_gear_sets()
     sets.midcast['Elemental Magic']				= {
 													main		="Daybreak",
 													sub			="Ammurapi Shield",
-													range		="Dunna",
+													ammo		="Pemphredo Tathlum",
 													head		="Bagua Galero +3",
 													body		="Bagua Tunic +3",
 													hands		="Bagua Mitaines +3",
 													legs		="Bagua Pants +2",
-													feet		="Bagua Sandals +2",
+													feet		="Bagua Sandals +3",
 													neck		="Saevus Pendant +1",
 													waist		="Sacro Cord",
 													left_ear	="Malignance Earring",
 													right_ear	="Friomisi Earring",
-													left_ring	="Acumen Ring",
-													right_ring	="Strendu Ring",
+													left_ring	="Freke Ring",
+													right_ring	="Metamor. Ring +1",
 													back		=Nantosuelta.Nuke}
     sets.midcast['Elemental Magic'].Resistant	= set_combine(sets.midcast['Elemental Magic'], {})
     sets.midcast.GeoElem						= set_combine(sets.midcast['Elemental Magic'], {})
@@ -295,39 +312,48 @@ function init_gear_sets()
 													sub			="Genmei Shield",
 													range		="Dunna",
 													head		="Befouled Crown",
-													body		="Geomancy Tunic +3",
+													body		="Azimuth Coat +2",
 													hands		="Bagua Mitaines +3",
 													legs		="Assiduity Pants +1",
 													feet		="Geo. Sandals +3",
-													neck		="Loricate Torque +1",
+													neck		="Sibyl Scarf",
 													waist		="Slipor Sash",
 													left_ear	="Lugalbanda Earring",
 													right_ear	="Moonshade Earring",
-													left_ring	="Warden's Ring",
+													left_ring	="Stikini Ring +1",
 													right_ring	="Defending Ring",
 													back		=Nantosuelta.Pet}
     sets.resting								= set_combine(sets.idle, {})
 	sets.idle.Town								= set_combine(sets.idle, {feet="Geo. Sandals +3"})
     sets.idle.DT								= set_combine(sets.idle, {})
-    sets.idle.Pet								= {
+    sets.idle.Pet								= set_combine(sets.idle, {
 													main		="Solstice",
 													sub			="Genmei Shield",
 													range		="Dunna",
-													head		={ name="Telchine Cap", augments={'Mag. Evasion+25','Pet: "Regen"+3','HP+44',}},
-													body		={ name="Telchine Chas.", augments={'Mag. Evasion+25','Pet: "Regen"+3','HP+49',}},
-													hands		="Geomancy Mitaines +3",
-													legs		={ name="Telchine Braconi", augments={'Mag. Evasion+25','Pet: "Regen"+3','HP+49',}},
-													feet		="Bagua Sandals +2",
-													neck		="Loricate Torque +1",
-													waist		="Isa Belt",
-													left_ear	="Lugalbanda Earring",
-													right_ear	="Moonshade Earring",
+													head		="Azimuth Hood +2",
+													hands		="Geo. Mitaines +3",
+													legs		="Nyame Flanchard",
+													feet		="Bagua Sandals +3",
 													left_ring	="Warden's Ring",
-													right_ring	="Defending Ring",
-													back		=Nantosuelta.Pet}
+													waist		="Isa Belt"})
     sets.idle.DT.Pet							= sets.idle.Pet
 --	Indi sets are for when an Indi-spell is active.
---	sets.idle.Indi								= set_combine(sets.idle, {})
+--	sets.idle.Indi								= set_combine(sets.idle, {
+--													main		="Solstice",
+--													sub			="Genmei Shield",
+--													range		="Dunna",
+--													head		={ name="Telchine Cap", augments={'Mag. Evasion+25','Pet: "Regen"+3','HP+44',}},
+--													body		={ name="Telchine Chas.", augments={'Mag. Evasion+25','Pet: "Regen"+3','HP+49',}},
+--													hands		="Geomancy Mitaines +3",
+--													legs		={ name="Telchine Braconi", augments={'Mag. Evasion+25','Pet: "Regen"+3','HP+49',}},
+--													feet		="Bagua Sandals +3",
+--													neck		="Loricate Torque +1",
+--													waist		="Isa Belt",
+--													left_ear	="Lugalbanda Earring",
+--													right_ear	="Moonshade Earring",
+--													left_ring	="Warden's Ring",
+--													right_ring	="Defending Ring",
+--													back		=Nantosuelta.Pet})
 --	sets.idle.DT.Indi							= set_combine(sets.idle.DT, {})
 --	sets.idle.DT.Pet.Indi						= set_combine(sets.idle.DT.Pet, {})
 
@@ -545,13 +571,10 @@ function job_self_command(cmdParams, eventArgs)
 end
 
 function refine_various_spells(spell, action, spellMap, eventArgs)
-
     local newSpell = spell.english
     local spell_recasts = windower.ffxi.get_spell_recasts()
     local cancelling = 'All '..spell.english..' are on cooldown. Cancelling.'
-
     local spell_index
-
     if spell_recasts[spell.recast_id] > 0 then
         if spell.skill == 'Elemental Magic' and spellMap ~= 'GeoElem' then
             spell_index = table.find(degrade_array[spell.element],spell.name)
